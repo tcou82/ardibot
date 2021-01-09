@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<!--
+ *  Page de saisie du micro programme pour activer ArdiBot
+-->
+<html>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css/page.css">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <base target="_blank">
+
+    <title>ArdiBot</title>
+
+ </head>
+
+<body allign='center'>
+       <div class="d-sm-flex d-lg-flex-inline ">
+               <div class="btn-group">
+                   <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                       aria-expanded="false">
+                      Menu
+                   </button>
+                   <div class="dropdown-menu">
+                       <a href="#">Nouveau</a><br>
+                       <a href="#">Ouvrir</a><br>
+                       <a href="#">Enregistrer</a><br>
+                   </div>
+           </div>
+
+         <h2>ArdiBot - D&eacute;couverte robotique sur Arduino NANO</h2>
+        
+        </div>
+
+        <p><span id="errorMsg"></span></p>
+    
+<div class="row">
+    <div class="col-sm-3 ">
+        <div class="row cadre">
+            <div class="col">
+        <p class="msgtit">Palette des actions</p>
+        Déclarer un élément externe
+        <div class="declare">Associer 
+            <span class="elemt"> &nbsp </span>
+             avec 
+             <span class="pin"> pin .. </span>
+        </div>
+        Déclarer une variable
+        <div class="declare">Créer  
+            <span class="elemt"> &nbsp </span>
+             valorisé à 
+             <span class="value"> .. </span>
+        </div>
+        Ajouter une action
+        <div class="action">Positionner 
+            <span class="elemt"> &nbsp </span>
+             &agrave; 
+             <span class="value"> .. </span>
+        </div>
+        Ajouter une condition
+        <div class="cond">Quand 
+            <span class="elemt"> &nbsp </span>
+               = 
+             <span class="value"> &nbsp </span>
+              faire  
+              <span class="action"> &nbsp </span>
+        </div>
+    
+        
+    </div>
+        </div>
+        <p><button class="msgbutton" id="download" >Téléverser sur ArdiBot et exécuter</button>
+            &nbsp &nbsp &nbsp;
+            <button class="msgbutton" id="download" >Interrompre exécution</button>
+            </p>
+       
+    </div>
+    <div class="col-sm-9">
+        <div class="row cadre">
+        <div class="col-sm-6">
+        <p class="msgtit">Mise en place des connexions GPIO </p>
+        <div id='ztxtmu' >
+            <div class="declare">Associer 
+                <span class="elemt"> LED_1 </span>
+                 avec 
+                 <span class="pin"> pin 12 </span>
+            </div>
+            <div class="declare">Associer 
+                <span class="elemt"> MOTEUR_1 </span>
+                 avec 
+                 <span class="pin"> pin 11 </span>
+            </div>
+            <div class="declare">Associer 
+                <span class="elemt"> SONAR_1 </span>
+                 avec 
+                 <span class="pin"> pin 10 </span>
+            </div>
+        </div>
+    </div>
+        <div class="col-sm-6">
+                <p class="msgtit">Sequence d'initialisation </p>
+                    <div class="action">Positionner 
+                        <span class="elemt"> LED_1 </span>
+                         &agrave; 
+                         <span class="value"> ON </span>
+                    </div>
+                    <div class="action">Positionner 
+                        <span class="elemt"> MOTEUR_1 </span>
+                         &agrave; 
+                         <span class="value"> OFF </span>
+                    </div>
+                </div>
+        </div>
+
+<div class="row cadre">
+    <div class="col">
+        <p class="msgtit">Séquence du traitement répétée sans fin</span>
+        </p>
+        <div class="action">Positionner 
+            <span class="elemt"> LED_1 </span>
+             &agrave; 
+             <span class="value"> ON </span>
+        </div>
+        <div class="cond">Quand 
+            <span class="elemt"> SONAR_1 </span>
+               &lt 
+            <span class="value"> 20 </span>
+              faire  
+            <span class="action"> Positionner 
+                <span class="elemt"> MOTEUR_1 </span>
+                 &agrave; 
+                <span class="value"> OFF </span>
+            </span>
+        </div>
+        <div class="cond">Quand 
+            <span class="elemt"> SONAR_1 </span>
+               &lt 
+            <span class="value"> 20 </span>
+              faire  
+            <span class="action"> Positionner 
+                <span class="elemt"> LED_1 </span>
+                 &agrave; 
+                 <span class="value"> ON </span>
+            </span>
+        </div>
+        <div class="cond">Quand 
+            <span class="elemt"> SONAR_1 </span>
+               &lt 
+            <span class="value"> 20 </span>
+              faire  
+            <span class="action"> Boucler 
+            </span>
+        </div>
+        <div class="action">Positionner 
+            <span class="elemt"> MOTEUR_1 </span>
+             &agrave; 
+             <span class="value"> ON </span>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+<!-- include adapter for srcObject shim -->
+<script src="js/main.js" async></script>
+<script src="js/ga.js" async></script>
+
+<div class="modal fade" id="uploaddoc" tabindex="-1" role="document" aria-hidden="false">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div id="waitload" class="cache">
+                    <br>Envoi du message en cours &nbsp 
+                    <span class="spinner-border text-danger"></span>
+                    <br>
+                </div>
+                <div id="nowaitload">
+                    <br> 
+                    <span id="retmsg"></span>
+                    <br>
+                    <a onclick="window.location.href = 'https://droitpluriel.fr/'"><button class="msgbtn" >Retour</button></a></p>
+                    <br>
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>
+
+</body>
+</html>

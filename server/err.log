@@ -1,0 +1,15 @@
+
+avrdude: Version 6.3-20190619
+         Copyright (c) 2000-2005 Brian Dean, http://www.bdmicro.com/
+         Copyright (c) 2007-2014 Joerg Wunsch
+
+         System wide configuration file is "D:\developpements\raspibot\Arduino\hardware\tools\avr/etc/avrdude.conf"
+
+         Using Port                    : COM3
+         Using Programmer              : arduino
+         Overriding Baud Rate          : 57600
+avrdude: ser_open(): can't open device "\\.\COM3": Le fichier spécifié est introuvable.
+
+
+avrdude done.  Thank you.
+

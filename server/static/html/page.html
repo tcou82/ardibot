@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<!--
+ *  Page de saisie du micro programme pour activer ArdiBot
+-->
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css/page.css">
+
+    <script src="../js/page.js" async></script>
+
+
+    <base target="_blank">
+
+    <title>ArdiBot</title>
+
+</head>
+
+<body allign='center'>
+    <div class="d-sm-flex d-lg-flex-inline ">
+
+        <div onclick="read()">
+            <img class="bandeau" src="../img/fileimport_120157.png" />
+        </div>
+        <div onclick="save()">
+            <img class="bandeau" src="../img/floppy_119973.png" />
+        </div>
+        <div>
+            <input class="bandeau" id="projet_name">
+        </div>
+
+        <h2 class="bandeau">ArdiBot - D&eacute;couverte robotique</h2>
+
+        <div>
+            <select class="bandeau" id="sel_device">
+                <option value="NANO">NANO</option>
+            </select>
+        </div>
+        <div>
+            <select class="bandeau" id="sel_firmware">
+                <option value="Atmega320p0ld">Atmega320pOld</option>
+            </select>
+        </div>
+        <div>
+            <select class="bandeau" id="sel_port">
+                <option value="COM3">COM3</option>
+            </select>
+        </div>
+        <div>
+            <a><span onclick="run_app();"><img class="maxi" src="../img/Start-icon.png" /></span></a>
+        </div>
+        <div>
+            <a><span onclick="stop_app();"><img class="maxi" src="../img/Stop-red-icon.png" /></span></a>
+        </div>
+    </div>
+
+    <div class="row">
+        <dic class="col-sm-2"></dic>
+        <div class="col-sm-2" id="palette">
+            <div class="cadre div_actions" ondrop="drop(event, 'suppr', -1)" ondragover="allowDrop(event, 'trash')">
+                &nbsp &nbsp &nbsp &nbsp &nbsp
+                <span><img class="maxi" src="../img/trash-icon.png" /></span>
+
+            </div>
+            <div class="row cadre">
+                <div class="col instructions flex-column">
+                    Les composants externes
+                    <div class="divins"><span class="declare" draggable="true"
+                            ondragstart="drag(event, 'dp', 'palette', -1)">Associer
+                            <span class="elemt"> &nbsp </span>
+                            &agrave; broche
+                            <span class="pin"> &nbsp </span>
+                        </span>
+                    </div>
+                    Les variables
+                    <div class="divins">
+                        <span class="declare" draggable="true" ondragstart="drag(event, 'dv', 'palette', -1)">Définir
+                            <span class="elemt"> &nbsp </span>
+                            valorisé à
+                            <span class="value"> &nbsp </span>
+                        </span>
+                    </div>
+                    Les actions de base
+                    <div class="divins">
+                        <span class="action" draggable="true" ondragstart="drag(event, 'av', 'palette', -1)">Valoriser
+                            <span class="elemt"> &nbsp </span>
+                            &agrave;
+                            <span class="value"> &nbsp </span>
+                        </span>
+                    </div>
+                    <div class="divins">
+                        <span class="action" draggable="true" ondragstart="drag(event, 'ac', 'palette', -1)">Calculer
+                            <span class="elemt"> &nbsp </span>
+                            =
+                            <span class="elemt"> &nbsp </span>
+                            + 
+                            <span class="value"> &nbsp </span>
+                        </span>
+                    </div>
+                    <div class="divins">
+                        <span class="action" draggable="true" ondragstart="drag(event, 'at', 'palette', -1)">Attendre
+                            <span class="value"> &nbsp </span> s
+                        </span>
+                    </div>
+                    <div class="divins">
+                        <span class="action" draggable="true" ondragstart="drag(event, 'ae', 'palette', -1)">Exécuter
+                            <span class="fct"> &nbsp </span>
+                            (
+                            <span class="elemt"> &nbsp </span>
+                            ,
+                            <span class="value"> &nbsp </span>
+                            )
+                        </span>
+                    </div>
+
+                    Les conditions
+                    <div class="divins">
+                        <span class="cond" draggable="true" ondragstart="drag(event, 'ci', 'palette', -1)">Quand
+                            <span class="elemt"> &nbsp </span>
+                            =
+                            <span class="value"> &nbsp </span>
+                            faire :
+                        </span>
+                    </div>
+                    <div class="divins">
+                        <span class="cond" draggable="true" ondragstart="drag(event, 'ce', 'palette', -1)">Sinon faire :
+                        </span>
+                    </div>
+
+                    Les boucles
+                    <div class="divins">
+                        <span class="cond" draggable="true" ondragstart="drag(event, 'cw', 'palette', -1)">Tant que
+                            <span class="elemt"> &nbsp </span>
+                            =
+                            <span class="value"> &nbsp </span>
+                            faire :
+                        </span>
+                    </div>
+
+                    Les fonctions
+                    <div class="divins">
+                        <span class="fct" draggable="true" ondragstart="drag(event, 'fd', 'palette', -1)">Fonction
+                            <span class="fct"> &nbsp </span>
+                            (
+                            <span class="elemt"> &nbsp </span>
+                            <span class="value"> &nbsp </span>
+                            )
+                        </span>
+                    </div>
+                    <div class="divins">
+                        <span class="fct" draggable="true" ondragstart="drag(event, 'ff', 'palette', -1)">Fin fonction
+                        </span>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="col  instructions " id="programme1">
+            <div>
+                <p class="msgtit cadre" ondrop="drop(event, 'init', -1)" ondragover="allowDrop(event, 'init')">Séquence
+                    d'initialisation </p>
+                <div id='sect_init'>
+                </div>
+            </div>
+        </div>
+        <div class="col  instructions " id="programme2">
+            <p class="msgtit cadre" ondrop="drop(event, 'loop', -1)" ondragover="allowDrop(event, 'loop')">Séquence du
+                traitement répétée sans fin</span>
+            </p>
+            <div id='sect_loop'>
+            </div>
+        </div>
+        <div class="col  instructions" id="programme3">
+            <p class="msgtit cadre" ondrop="drop(event, 'fct', -1)" ondragover="allowDrop(event, 'fct')">
+                Fonctions</span>
+            </p>
+            <div id='sect_fct'>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="addelt" tabindex="-1" role="document" aria-hidden="false">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="msgtit" id="add_title"></div>
+                    <br>
+                    <div class="div_inline">
+                        <div hidden>
+                            <input type="text" id="add_type" hidden />
+                            <input type="text" id="add_item" hidden />
+                            <input type="text" id="maj_section" hidden />
+                            <input type="text" id="maj_idins" hidden />
+                            <p>Sequence d'insertion :
+                                <select id="add_sel_section" onchange="maj_sel_block();"></select>
+                            </p>
+                            <p id="add_p_block">Appartient au bloc conditionné :
+                                <select id="add_sel_block">
+                                    <option>Non</option>
+                                    <option>Oui</option>
+                                </select>
+                            </p>
+                        </div>
+                        <div id="add_dp" class="instructions div_inline">
+                            <div class="divins2">
+                                <span class="declare"> Associer
+                                    <span class="elemt">
+                                        <select class="elemt" id='add_sel_elt_dp'
+                                            onchange="set_sel_number('add_sel_elt_dp', 'add_sel_id_dp', '')"></select>
+                                        _
+                                        <select class="elemt" id='add_sel_id_dp'>
+                                        </select>
+                                    </span>
+                                    &agrave; broche
+                                    <span class="pin">
+                                        <select class="pin" id='add_sel_pin_dp'>
+                                        </select> </span>
+                                </span>
+                                <a onclick="add_maj();"><img class="validate" src="../img/validate.png" /></a>
+                            </div>
+                        </div>
+                        <div id='add_dv' class="instructions div_inline">
+                            <div class="divins2">
+                                <span class="declare"> Définir
+                                    <span class="elemt">
+                                        <input class="elemt" id='add_var_dv' type="text" />
+                                    </span>
+                                    valorisé à
+                                    <span class="value">
+                                        <input class="value" id='add_val_dv' type="text" />
+                                    </span>
+                                </span>
+                                <a onclick="add_maj();"><img class="validate" src="../img/validate.png" /></a>
+                            </div>
+
+                        </div>
+                        <div id='add_av' class="instructions div_inline">
+                            <div class="divins2">
+                                <span class="action"> Valoriser
+                                    <span class="elemt">
+                                        <select class="elemt" id='add_sel_elt1_av'></select>
+                                    </span>
+                                    &agrave;
+                                    <span>
+                                        <span class="value">
+                                            <input class="value" id='add_val_av' type="text" />
+                                        </span>
+                                        <span class="elemt">
+                                            <select class="elemt" id='add_sel_elt2_av'></select>
+                                        </span>
+                                    </span>
+                                </span>
+                                <a onclick="add_maj();"><img class="validate" src="../img/validate.png" /></a>
+                            </div>
+                        </div>
+                        <div id='add_at' class="instructions div_inline">
+                            <div class="divins2">
+                                <span class="action"> Attendre
+                                    <span class="value">
+                                        <input class="value" id='add_val_at' type="text" />
+                                    </span>
+                                    <span class="elemt">
+                                        <select class="elemt" id='add_sel_elt1_at'></select>
+                                    </span>
+                                    s
+                                </span>
+                                <a onclick="add_maj();"><img class="validate" src="../img/validate.png" /></a>
+                            </div>
+                        </div>
+                        <div id='add_ac' class="instructions div_inline">
+                            <div class="divins2">
+                                <span class="action"> Calculer
+                                    <span class="elemt">
+                                        <select class="elemt" id='add_sel_elt1_ac'></select>
+                                    </span>
+                                    =
+                                    <span class="elemt">
+                                        <select class="elemt" id='add_sel_elt2_ac'></select>
+                                    </span>
+                                    <select class="cond" id='add_sel_ope_ac'>
+                                    </select>
+                                    <span class="value">
+                                        <input class="value" id='add_val_ac' type="text" />
+                                    </span>
+                                    <span class="elemt">
+                                        <select class="elemt" id='add_sel_elt3_ac'></select>
+                                    </span>
+                                </span>
+                                <a onclick="add_maj();"><img class="validate" src="../img/validate.png" /></a>
+                            </div>
+                        </div>
+                        <div id='add_ae' class="instructions div_inline">
+                            <div class="divins2">
+                                <span class="action"> Exécuter
+                                    <span class="fct">
+                                        <select class="fct" id='add_sel_fct_ae'></select>
+                                    </span>
+                                    (
+                                    <span class="elemt">
+                                        <select class="elemt" id='add_sel_elt2_ac'></select>
+                                    </span>
+                                    ,
+                                    <span class="value">
+                                        <input class="value" id='add_val_ac' type="text" />
+                                    </span>
+                                    )
+                                </span>
+                                <a onclick="add_maj();"><img class="validate" src="../img/validate.png" /></a>
+                            </div>
+                        </div>
+                        <div id='add_ci' class="instructions div_inline">
+                            <div class="divins2">
+                                <span class="cond"> Quand
+                                    <span class="elemt">
+                                        <select class="elemt" id='add_sel_elt1_ci'></select>
+                                    </span>
+                                    <select class="cond" id='add_sel_ope_ci'>
+                                    </select>
+                                    <span class="value">
+                                        <input class="value" id='add_val_ci' type="text" />
+                                    </span>
+                                    <span class="elemt">
+                                        <select class="elemt" id='add_sel_elt2_ci'></select>
+                                    </span>
+                                    faire :
+                                </span>
+                                <a onclick="add_maj();"><img class="validate" src="../img/validate.png" /></a>
+                            </div>
+                        </div>
+                        <div id='add_cw' class="instructions div_inline">
+                            <div class="divins2">
+                                <span class="cond"> Tant que
+                                    <span class="elemt">
+                                        <select class="elemt" id='add_sel_elt1_cw'></select>
+                                    </span>
+                                    <select class="cond" id='add_sel_ope_cw'>
+                                    </select>
+                                    <span class="value">
+                                        <input class="value" id='add_val_cw' type="text" />
+                                    </span>
+                                    <span class="elemt">
+                                        <select class="elemt" id='add_sel_elt2_cw'></select>
+                                    </span>
+                                    faire :
+                                </span>
+                                <a onclick="add_maj();"><img class="validate" src="../img/validate.png" /></a>
+                            </div>
+                        </div>
+                        <div id='add_ce' class="instructions div_inline">
+                            <div class="divins2">
+                                <span class="cond"> Sinon faire :
+                                </span>
+                                <a onclick="add_maj();"><img class="validate" src="../img/validate.png" /></a>
+                            </div>
+                        </div>
+                        <div id='add_fd' class="instructions div_inline">
+                            <div class="divins2">
+                                <span class="fct"> Fonction
+                                    <span class="fct">
+                                        <input class="fct" id='add_fct_fd' type="text" />
+                                    </span>
+                                    (
+                                    <span id="add_zarg_fd"></span>
+                                    )
+                                </span>
+                                <input hidden id='add_nbarg_fd' type="number" />
+                                <a onclick="add_arg_fd();"><img class="validate"
+                                        src="../img/plussquare_120280.png" /></a>
+                                <a onclick="add_maj();"><img class="validate" src="../img/validate.png" /></a>
+                            </div>
+                        </div>
+                        <div id='add_ff' class="instructions div_inline">
+                            <div class="divins2">
+                                <span class="fct"> Fin fonction
+                                </span>
+                                <a onclick="add_maj();"><img class="validate" src="../img/validate.png" /></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="message" tabindex="-1" role="document" aria-hidden="false">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div id="zmsg"><span id='lmsg'></span></div>
+                    <div id="zerr"><span id='lerr'></span></div>
+                </div>
+                <p class="log" id="detailerr"></p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
