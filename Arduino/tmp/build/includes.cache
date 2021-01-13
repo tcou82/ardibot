@@ -2,20 +2,20 @@
   {
     "Sourcefile": null,
     "Include": "",
-    "Includepath": "D:\\developpements\\raspibot\\Arduino\\hardware\\arduino\\avr\\cores\\arduino"
+    "Includepath": "D:\\developpements\\ardibot\\Arduino\\hardware\\arduino\\avr\\cores\\arduino"
   },
   {
     "Sourcefile": null,
     "Include": "",
-    "Includepath": "D:\\developpements\\raspibot\\Arduino\\hardware\\arduino\\avr\\variants\\eightanaloginputs"
+    "Includepath": "D:\\developpements\\ardibot\\Arduino\\hardware\\arduino\\avr\\variants\\eightanaloginputs"
   },
   {
-    "Sourcefile": "D:\\developpements\\raspibot\\Arduino\\tmp\\build\\sketch\\app.ino.cpp",
+    "Sourcefile": "D:\\developpements\\ardibot\\Arduino\\tmp\\build\\sketch\\app.ino.cpp",
     "Include": "Servo.h",
     "Includepath": "C:\\Users\\tcou8\\Documents\\Arduino\\libraries\\Servo\\src"
   },
   {
-    "Sourcefile": "D:\\developpements\\raspibot\\Arduino\\tmp\\build\\sketch\\app.ino.cpp",
+    "Sourcefile": "D:\\developpements\\ardibot\\Arduino\\tmp\\build\\sketch\\app.ino.cpp",
     "Include": "",
     "Includepath": null
   },

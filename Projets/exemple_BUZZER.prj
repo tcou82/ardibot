@@ -1,0 +1,114 @@
+{
+    "name": "exemple_BUZZER",
+    "device": "nano",
+    "firmware": "atmega328old",
+    "port": "COM3",
+    "instructions": {
+        "fct": [],
+        "init": [
+            {
+                "tins": "dp",
+                "elt": "BUZZER_1",
+                "telt1": "",
+                "telt2": "",
+                "elt1": "",
+                "elt2": "",
+                "ope": "",
+                "pin": "4",
+                "pin_mode": "OUTPUT",
+                "fct": "",
+                "nbarg": 0,
+                "block": false
+            }
+        ],
+        "loop": [
+            {
+                "tins": "av",
+                "elt": "BUZZER_1",
+                "telt1": "cst",
+                "elt1": "HIGH",
+                "pin": "",
+                "pin_mode": "",
+                "nbarg": 0,
+                "block": false
+            },
+            {
+                "tins": "at",
+                "elt": "",
+                "telt1": "val",
+                "elt1": "0.5",
+                "pin": "",
+                "pin_mode": "",
+                "nbarg": 0,
+                "block": false
+            },
+            {
+                "tins": "av",
+                "elt": "BUZZER_1",
+                "telt1": "cst",
+                "elt1": "LOW",
+                "pin": "",
+                "pin_mode": "",
+                "nbarg": 0,
+                "block": false
+            },
+            {
+                "tins": "at",
+                "elt": "",
+                "telt1": "val",
+                "elt1": "1",
+                "pin": "",
+                "pin_mode": "",
+                "nbarg": 0,
+                "block": false
+            }
+        ]
+    },
+    "elements_defined": {
+        "BUZZER_1": {
+            "mode": "O"
+        }
+    },
+    "function_defined": {},
+    "PIN_AUTHORIZED": {
+        "2": {
+            "free": true
+        },
+        "3": {
+            "free": true
+        },
+        "4": {
+            "free": false
+        },
+        "5": {
+            "free": true
+        },
+        "6": {
+            "free": true
+        },
+        "7": {
+            "free": true
+        },
+        "8": {
+            "free": true
+        },
+        "9": {
+            "free": true
+        },
+        "10": {
+            "free": true
+        },
+        "11": {
+            "free": true
+        },
+        "12": {
+            "free": true
+        },
+        "13": {
+            "free": true
+        },
+        "14": {
+            "free": true
+        }
+    }
+}

@@ -10,7 +10,9 @@ import urllib.parse
 from mimetypes import MimeTypes
 
 SERVER_PORT = 8000
-REP_INSTALL = 'D:\\developpements\\raspibot'
+REP_INSTALL = 'D:\\developpements\\ardibot'
+FIRMWARE = {'atmega328p': 'atmega328p',
+            'atmega328old': 'atmega328p'}
 
 class ServerHandler(BaseHTTPRequestHandler):
     '''
@@ -58,7 +60,7 @@ class ServerHandler(BaseHTTPRequestHandler):
         if _path_nodes[1] in ['run', 'stop']:
             print('Traitement '+_path_nodes[1])
             self.traiter_demande(_path_nodes[1])
-        elif _path_nodes[1] in ['read', 'save']:
+        elif _path_nodes[1] in ['read', 'save', 'list']:
             print('Traitement '+_path_nodes[1])
             self.traiter_stock(_path_nodes[1])
         else:    
@@ -80,17 +82,23 @@ class ServerHandler(BaseHTTPRequestHandler):
         _path_projets = os.path.join(REP_INSTALL,'Projets')
         if not os.path.exists(_path_projets):
             os.makedirs(_path_projets)
-        _path_prj = os.path.join(_path_projets,self.comobj['projet']['name']+'.prj')
         
         if cmd == 'save':
+            _path_prj = os.path.join(_path_projets,self.comobj['projet']['name']+'.prj')
             with open(_path_prj, 'w') as _fprj:
-                _projet = json.dumps(self.comobj['projet'])
-                _fprj.write(_projet)
+                json.dump(self.comobj['projet'], _fprj, indent=4)
             self.comobj['lret'] = "Le projet a bien été enregistré"
-        if cmd == 'read':
+        elif cmd == 'read':
+            _path_prj = os.path.join(_path_projets,self.comobj['projet']['name']+'.prj')
             with open(_path_prj, 'r') as _fprj:
                 self.comobj['projet'] = json.loads(_fprj.read())
             self.comobj['lret'] = "Le projet a bien été récupéré"
+        elif cmd == 'list':
+            self.comobj['projets'] = []
+            for _file in os.listdir(_path_projets):
+                if _file[-4:] == '.prj':
+                    self.comobj['projets'].append(_file[:-4])
+            self.comobj['lret'] = "Le liste des projets a bien été récupérée"
 
     def traiter_demande(self, cmd):
         self.comobj['tmp'] = {}
@@ -107,78 +115,86 @@ class ServerHandler(BaseHTTPRequestHandler):
     def generer_source(self, cmd, instructions):
         _elts = {}
         _parts = {'define': '''#include <Servo.h>\n
+int REVERSE = -1;
 int inters [20] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 ''', 'init': '', 'loop': '', 'fct': ''}
         _isblock = False
-        for _sect in instructions.keys():
+        for _sect in ['init', 'loop', 'fct']:
             for _inst in instructions[_sect]:
                 print(str(_inst))
                 # Setup - declaration GPIO
-                if _isblock and ( not _inst['block'] or _inst['tins'] == 'c'):
-                    _parts[_sect] += '}\n'
+                if  _isblock and not _inst['block']:
+                    _parts[_sect] += '\n}\n'
                     _isblock = False
+                
                 if _inst['tins'] == 'dp':
                     #_define += '#define {}_PIN {} \n'.format(_inst['elt1'], _inst['pin'])
-                    if _inst['elt1'][:3] == 'LED':
-                        _parts['define'] += 'const int {}_PIN = {}; \n'.format(_inst['elt1'], _inst['pin'])
-                        _parts[_sect]   += '    pinMode({}_PIN, {}); \n'.format(_inst['elt1'], _inst['pin_mode'])
-                        _elts[_inst['elt1']] = {'fmt': 'int', 'val': '    digitalWrite({0}_PIN, {2}{1}{2});\n', 'del': ''}
-                    elif _inst['elt1'][:5] == 'SERVO':
-                        _parts['define'] += 'const int {}_PIN = {}; \n'.format(_inst['elt1'], _inst['pin'])
-                        _parts['define'] += 'Servo {}; \n'.format(_inst['elt1'])
-                        _parts[_sect]   += '    {}.attach({}); \n'.format(_inst['elt1'], _inst['pin'])
-                        _elts[_inst['elt1']] = {'fmt': 'int', 'val': '    {0}.write({2}{1}{2});\n', 'del': ''}
-                    elif _inst['elt1'][:5] == 'SONAR':
-                        _parts['define'] += 'const int {}_PIN = {}; \n'.format(_inst['elt1'], _inst['pin'])
-                        _elts[_inst['elt1']] = {'fmt': 'float', 'val': 'get_{0}', 'del': ''}
-                    elif _inst['elt1'][:5] == 'INTER':
-                        _parts['define'] += 'const int {}_PIN = {}; \n'.format(_inst['elt1'], _inst['pin'])
-                        _parts[_sect]   += '    pinMode({}_PIN, {}); \n'.format(_inst['elt1'], _inst['pin_mode'])
-                        _elts[_inst['elt1']] = {'fmt': 'int', 'val': 'get_{0}', 'del': ''}
-                    elif _inst['elt1'][:7] == 'MOTEUR_':
-                        _parts['define'] += 'const int {}_PIN_A = {}; \n'.format(_inst['elt1'], _inst['pin'])
-                        _parts['define'] += 'const int {}_PIN_B = {}; \n'.format(_inst['elt1'], int(_inst['pin'])+1)
-                        _parts[_sect]   += '    pinMode({}_PIN_A, {}); \n'.format(_inst['elt1'], _inst['pin_mode'])
-                        _parts[_sect]   += '    pinMode({}_PIN_B, {}); \n'.format(_inst['elt1'], _inst['pin_mode'])
-                        _elts[_inst['elt1']] = {'fmt': 'int', 'val': 'set_MOTEUR({0}_PIN_A, {0}_PIN_B, {2}{1}{2});\n', 'del': ''}
+                    if _inst['elt'][:3] == 'LED':
+                        _parts['define'] += 'const int {}_PIN = {}; \n'.format(_inst['elt'], _inst['pin'])
+                        _parts[_sect]   += '    pinMode({}_PIN, {}); \n'.format(_inst['elt'], _inst['pin_mode'])
+                        _elts[_inst['elt']] = {'fmt': 'int', 'val': '    digitalWrite({0}_PIN, {2}{1}{2});\n', 'del': ''}
+                    elif _inst['elt'][:6] == 'BUZZER':
+                        _parts['define'] += 'const int {}_PIN = {}; \n'.format(_inst['elt'], _inst['pin'])
+                        _parts[_sect]   += '    pinMode({}_PIN, {}); \n'.format(_inst['elt'], _inst['pin_mode'])
+                        _elts[_inst['elt']] = {'fmt': 'int', 'val': '    digitalWrite({0}_PIN, {2}{1}{2});\n', 'del': ''}
+                    elif _inst['elt'][:5] == 'SERVO':
+                        _parts['define'] += 'const int {}_PIN = {}; \n'.format(_inst['elt'], _inst['pin'])
+                        _parts['define'] += 'Servo {}; \n'.format(_inst['elt'])
+                        _parts[_sect]   += '    {}.attach({}); \n'.format(_inst['elt'], _inst['pin'])
+                        _elts[_inst['elt']] = {'fmt': 'int', 'val': '    {0}.write({2}{1}{2});\n', 'del': ''}
+                    elif _inst['elt'][:5] == 'SONAR':
+                        _parts['define'] += 'const int {}_PIN = {}; \n'.format(_inst['elt'], _inst['pin'])
+                        _elts[_inst['elt']] = {'fmt': 'float', 'val': 'get_{0}', 'del': ''}
+                    elif _inst['elt'][:5] == 'INTER':
+                        _parts['define'] += 'const int {}_PIN = {}; \n'.format(_inst['elt'], _inst['pin'])
+                        _parts[_sect]   += '    pinMode({}_PIN, {}); \n'.format(_inst['elt'], _inst['pin_mode'])
+                        _elts[_inst['elt']] = {'fmt': 'int', 'val': 'get_{0}', 'del': ''}
+                    elif _inst['elt'][:7] == 'MOTEUR_':
+                        _parts['define'] += 'const int {}_PIN_A = {}; \n'.format(_inst['elt'], _inst['pin'])
+                        _parts['define'] += 'const int {}_PIN_B = {}; \n'.format(_inst['elt'], int(_inst['pin'])+1)
+                        _parts[_sect]   += '    pinMode({}_PIN_A, {}); \n'.format(_inst['elt'], _inst['pin_mode'])
+                        _parts[_sect]   += '    pinMode({}_PIN_B, {}); \n'.format(_inst['elt'], _inst['pin_mode'])
+                        _elts[_inst['elt']] = {'fmt': 'int', 'val': '    set_MOTEUR({0}_PIN_A, {0}_PIN_B, {2}{1}{2});\n', 'del': ''}
                 elif _inst['tins'] == 'dv':
-                    if _inst['val1'] != '':
-                        if re.match('^[0-9\.]*$', _inst['val1']):
+                    if _inst['telt1'] != 'elt':
+                        if re.match('(^[0-9\.]*$)|(^LOW$)|(^HIGH$)|(^REVERSE$)', _inst['elt1']):
                             print('valeur numerique')
-                            _elts[_inst['elt1']] = {'fmt': '    float {0} = {1};\n', 'val': '    {0} = {2}{1}{2};\n', 'del': ''}
-                            print(str(_elts[_inst['elt1']]))
+                            _elts[_inst['elt']] = {'fmt': '    float {0} = {1};\n', 'val': '    {0} = {2}{1}{2};\n', 'del': ''}
+                            print(str(_elts[_inst['elt']]))
                         else:
                             print('valeur alpha')
-                            _elts[_inst['elt1']] = {'fmt': '    char * {0};\n    {0} = malloc(50);\n    strcpy({0}, {2}{1}{2});\n', 'val': '    strcpy({0}, {2}{1}{2});\n', 'del': '"'}
-                            print(str(_elts[_inst['elt1']]))
-                        _parts['define'] += _elts[_inst['elt1']]['fmt'].format(_inst['elt1'], _inst['val1'], _elts[_inst['elt1']]['del'])
+                            _elts[_inst['elt']] = {'fmt': '    char * {0};\n    {0} = malloc(50);\n    strcpy({0}, {2}{1}{2});\n', 'val': '    strcpy({0}, {2}{1}{2});\n', 'del': '"'}
+                            print(str(_elts[_inst['elt']]))
+                        _parts['define'] += _elts[_inst['elt']]['fmt'].format(_inst['elt'], _inst['elt1'], _elts[_inst['elt']]['del'])
                     else:
                         print('Valo avec autre variable')
-                        _elts[_inst['elt1']] = {'fmt': _elts[_inst['elt2']]['fmt'], 'val': _elts[_inst['elt2']]['val'], 'del': _elts[_inst['elt2']]['del']}
-                        _parts['define'] += _elts[_inst['elt1']]['fmt'].format(_inst['elt1'], _inst['elt2'], _elts[_inst['elt1']]['del'])
-                        print(str(_elts[_inst['elt1']]))
+                        _elts[_inst['elt']] = {'fmt': _elts[_inst['elt2']]['fmt'], 'val': _elts[_inst['elt1']]['val'], 'del': _elts[_inst['elt2']]['del']}
+                        _parts['define'] += _elts[_inst['elt']]['fmt'].format(_inst['elt'], _inst['elt1'], _elts[_inst['elt1']]['del'])
+                        print(str(_elts[_inst['elt']]))
                 elif _inst['tins'] == 'av':
-                    if _inst['val1'] != '':
-                        _parts[_sect] += _elts[_inst['elt1']]['val'].format(_inst['elt1'], _inst['val1'], _elts[_inst['elt1']]['del'])
+                    if _inst['telt1'] != 'elt':
+                        _parts[_sect] += _elts[_inst['elt']]['val'].format(_inst['elt'], _inst['elt1'], _elts[_inst['elt']]['del'])
                     else:
-                        _parts[_sect] += _elts[_inst['elt1']]['val'].format(_inst['elt1'], self.get_elt(_inst['elt2']), '')
+                        _parts[_sect] += _elts[_inst['elt']]['val'].format(_inst['elt'], self.get_elt(_inst['elt1']), '')
                 elif _inst['tins'] == 'ac':
-                    if _inst['val1'] != '':
-                        _parts[_sect] +='    {0} = {1} {2} {3};\n'.format(_inst['elt1'], self.get_elt(_inst['elt2']), _inst['ope'], _inst['val1'])
+                    if _inst['telt2'] != 'elt':
+                        _parts[_sect] +='    {0} = {1} {2} {3};\n'.format(_inst['elt'], self.get_elt(_inst['elt1']), _inst['ope'], _inst['elt2'])
                     else:
-                        _parts[_sect] +='    {0} = {1} {2} {3};\n'.format(_inst['elt1'], self.get_elt(_inst['elt2']), _inst['ope'], self.get_elt(_inst['elt3']))
+                        _parts[_sect] +='    {0} = {1} {2} {3};\n'.format(_inst['elt'], self.get_elt(_inst['elt1']), _inst['ope'], self.get_elt(_inst['elt2']))
                 elif _inst['tins'] == 'at':
-                    if _inst['val1'] != '':
-                        _parts[_sect] += '    delay({}*1000);\n'.format(_inst['val1'])
+                    if _inst['telt1'] != 'elt':
+                        _parts[_sect] += '    delay({}*1000);\n'.format(_inst['elt1'])
                     else:
                         _parts[_sect] += '    delay({}*1000);\n'.format(self.get_elt(_inst['elt1']))
+                elif _inst['tins'] == 'ae':
+                    _parts[_sect] += '    '+_inst['fct']+'();\n'
                 elif _inst['tins'] == 'ci':
                     if _inst['ope'] == '=':
                         _inst['ope'] = '=='
-                    if _inst['val1'] != '':
-                        _parts[_sect] += '    if ({0} {1} {2}) {{\n'.format(self.get_elt(_inst['elt1']), _inst['ope'], _inst['val1'])
+                    if _inst['telt1'] != 'elt':
+                        _parts[_sect] += '    if ({0} {1} {2}) {{\n'.format(self.get_elt(_inst['elt']), _inst['ope'], _inst['elt1'])
                     else:
-                        _parts[_sect] += '    if ({0} {1} {2}) {{\n'.format(self.get_elt(_inst['elt1']), _inst['ope'], self.get_elt(_inst['elt2']))
+                        _parts[_sect] += '    if ({0} {1} {2}) {{\n'.format(self.get_elt(_inst['elt']), _inst['ope'], self.get_elt(_inst['elt1']))
                     _isblock = True
                 elif _inst['tins'] == 'ce':
                     _parts[_sect] += '    else { '
@@ -186,11 +202,16 @@ int inters [20] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
                 elif _inst['tins'] == 'cw':
                     if _inst['ope'] == '=':
                         _inst['ope'] = '=='
-                    if _inst['val1'] != '':
-                        _parts[_sect] += '    while ({0} {1} {2}) {{\n'.format(_inst['elt1'], _inst['ope'], _inst['val1'])
+                    if _inst['telt1'] != 'elt':
+                        _parts[_sect] += '    while ({0} {1} {2}) {{\n'.format(_inst['elt'], _inst['ope'], _inst['elt1'])
                     else:
-                        _parts[_sect] += '    while ({0} {1} {2}) {{\n'.format(_inst['elt1'], _inst['ope'], _inst['elt2'])
+                        _parts[_sect] += '    while ({0} {1} {2}) {{\n'.format(_inst['elt'], _inst['ope'], _inst['elt1'])
                     _isblock = True
+                elif _inst['tins'] == 'fd':
+                    _parts[_sect] += '\n'
+                    _parts[_sect] += 'void '+_inst['fct']+' () { \n'
+                elif _inst['tins'] == 'ff':
+                    _parts[_sect] += '}\n'
 
             if _isblock:
                 _parts[_sect] += '    }\n'
@@ -213,9 +234,11 @@ int inters [20] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         with open(_path_src, 'w') as _fsrc:
             # Setup - declaration GPIO et init
             _fsrc.write(_parts['define'])
-            _fsrc.write('''void setup() { 
+            _fsrc.write('''
+void setup() { 
     Serial.begin(9600); // Default communication rate of the Bluetooth module
-    Serial.println("Initialisation connexion:");''')
+    Serial.println("Initialisation connexion:");
+''')
             _fsrc.write(_parts['init'])
             _fsrc.write('}\n')
             _fsrc.write('void loop() {\n')
@@ -274,11 +297,14 @@ void set_MOTEUR(int npinA, int npinB, int val) {
      
     def compiler_televerser(self, cmd):
         _path_tools = os.path.join(REP_INSTALL,'Arduino','tools_tcou')
-        _command = '{}\\{}.cmd {} {} {}'.format(_path_tools,cmd, 
+        _command = '{}\\{}.cmd {} {} {} {} {}'.format(_path_tools,
+                                                cmd, 
+                                                REP_INSTALL,
                                                 self.comobj['projet']['device'], 
+                                                FIRMWARE[self.comobj['projet']['firmware']],
                                                 self.comobj['projet']['firmware'], 
                                                 self.comobj['projet']['port'])
-
+        print('Commande : \n'+_command)
         _cret = os.system(_command)
         if _cret > 0:
             if _cret == 1:

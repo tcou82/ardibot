@@ -1,18 +1,18 @@
 #include <Servo.h>
 
+int REVERSE = -1;
 int inters [20] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-const int MOTEUR_1_PIN_A = 4; 
-const int MOTEUR_1_PIN_B = 5; 
+const int LED_4_PIN = 2; 
+const int LED_2_PIN = 3; 
+
 void setup() { 
     Serial.begin(9600); // Default communication rate of the Bluetooth module
-    Serial.println("Initialisation connexion:");    pinMode(MOTEUR_1_PIN_A, OUTPUT); 
-    pinMode(MOTEUR_1_PIN_B, OUTPUT); 
+    Serial.println("Initialisation connexion:");
+    pinMode(LED_4_PIN, OUTPUT); 
+    pinMode(LED_2_PIN, OUTPUT); 
 }
 void loop() {
-set_MOTEUR(MOTEUR_1_PIN_A, MOTEUR_1_PIN_B, 1);    delay(3*1000);
-set_MOTEUR(MOTEUR_1_PIN_A, MOTEUR_1_PIN_B, 0);    delay(1*1000);
-set_MOTEUR(MOTEUR_1_PIN_A, MOTEUR_1_PIN_B, -1);    delay(3*1000);
-set_MOTEUR(MOTEUR_1_PIN_A, MOTEUR_1_PIN_B, 0);    delay(1*1000);
+    digitalWrite(LED_2_PIN, LOW);
 }
 
 float get_SONAR(int npin) {

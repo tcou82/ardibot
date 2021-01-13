@@ -1,19 +1,19 @@
-# 1 "D:\\developpements\\raspibot\\Arduino\\tmp\\app.ino"
-# 2 "D:\\developpements\\raspibot\\Arduino\\tmp\\app.ino" 2
+# 1 "D:\\developpements\\ardibot\\Arduino\\tmp\\app.ino"
+# 2 "D:\\developpements\\ardibot\\Arduino\\tmp\\app.ino" 2
 
+int REVERSE = -1;
 int inters [20] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-const int MOTEUR_1_PIN_A = 4;
-const int MOTEUR_1_PIN_B = 5;
+const int LED_4_PIN = 2;
+const int LED_2_PIN = 3;
+
 void setup() {
     Serial.begin(9600); // Default communication rate of the Bluetooth module
-    Serial.println("Initialisation connexion:"); pinMode(MOTEUR_1_PIN_A, 0x1);
-    pinMode(MOTEUR_1_PIN_B, 0x1);
+    Serial.println("Initialisation connexion:");
+    pinMode(LED_4_PIN, 0x1);
+    pinMode(LED_2_PIN, 0x1);
 }
 void loop() {
-set_MOTEUR(MOTEUR_1_PIN_A, MOTEUR_1_PIN_B, 1); delay(3*1000);
-set_MOTEUR(MOTEUR_1_PIN_A, MOTEUR_1_PIN_B, 0); delay(1*1000);
-set_MOTEUR(MOTEUR_1_PIN_A, MOTEUR_1_PIN_B, -1); delay(3*1000);
-set_MOTEUR(MOTEUR_1_PIN_A, MOTEUR_1_PIN_B, 0); delay(1*1000);
+    digitalWrite(LED_2_PIN, 0x0);
 }
 
 float get_SONAR(int npin) {

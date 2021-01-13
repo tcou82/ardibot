@@ -31,14 +31,17 @@
 
 </head>
 
-<body allign='center'>
+<body allign='center' onload="initpage()">
     <div class="d-sm-flex d-lg-flex-inline ">
-
-        <div onclick="read()">
-            <img class="bandeau" src="../img/fileimport_120157.png" />
+        <div onclick="document.location.reload();"> <a >
+            <img class="bandeau" src="../img/fileempty_120151.png" />
+            </a>
         </div>
-        <div onclick="save()">
-            <img class="bandeau" src="../img/floppy_119973.png" />
+        <div class="link" onclick="list()"><a>
+            <img class="bandeau" src="../img/fileimport_120157.png" /></a>
+        </div>
+        <div onclick="save()"><a>
+            <img class="bandeau" src="../img/floppy_119973.png" /></a>
         </div>
         <div>
             <input class="bandeau" id="projet_name">
@@ -48,12 +51,14 @@
 
         <div>
             <select class="bandeau" id="sel_device">
-                <option value="NANO">NANO</option>
+                <option value=""></option>
+                <option value="nano">NANO</option>
             </select>
         </div>
         <div>
             <select class="bandeau" id="sel_firmware">
-                <option value="Atmega320p0ld">Atmega320pOld</option>
+                <option value=""></option>
+                <option value="atmega328old">atmega328old</option>
             </select>
         </div>
         <div>
@@ -108,7 +113,7 @@
                             <span class="elemt"> &nbsp </span>
                             =
                             <span class="elemt"> &nbsp </span>
-                            + 
+                            +
                             <span class="value"> &nbsp </span>
                         </span>
                     </div>
@@ -120,11 +125,7 @@
                     <div class="divins">
                         <span class="action" draggable="true" ondragstart="drag(event, 'ae', 'palette', -1)">Exécuter
                             <span class="fct"> &nbsp </span>
-                            (
-                            <span class="elemt"> &nbsp </span>
-                            ,
-                            <span class="value"> &nbsp </span>
-                            )
+                            ( &nbsp )
                         </span>
                     </div>
 
@@ -147,7 +148,7 @@
                         <span class="cond" draggable="true" ondragstart="drag(event, 'cw', 'palette', -1)">Tant que
                             <span class="elemt"> &nbsp </span>
                             =
-                            <span class="value"> &nbsp </span>
+                            <spn class="value"> &nbsp </span>
                             faire :
                         </span>
                     </div>
@@ -155,19 +156,13 @@
                     Les fonctions
                     <div class="divins">
                         <span class="fct" draggable="true" ondragstart="drag(event, 'fd', 'palette', -1)">Fonction
-                            <span class="fct"> &nbsp </span>
-                            (
-                            <span class="elemt"> &nbsp </span>
-                            <span class="value"> &nbsp </span>
-                            )
+                            <span class="fct"> ( &nbsp ) </span>
                         </span>
                     </div>
                     <div class="divins">
                         <span class="fct" draggable="true" ondragstart="drag(event, 'ff', 'palette', -1)">Fin fonction
                         </span>
                     </div>
-
-
                 </div>
             </div>
         </div>
@@ -210,192 +205,342 @@
                             <p>Sequence d'insertion :
                                 <select id="add_sel_section" onchange="maj_sel_block();"></select>
                             </p>
-                            <p id="add_p_block">Appartient au bloc conditionné :
-                                <select id="add_sel_block">
-                                    <option>Non</option>
-                                    <option>Oui</option>
-                                </select>
-                            </p>
                         </div>
-                        <div id="add_dp" class="instructions div_inline">
-                            <div class="divins2">
-                                <span class="declare"> Associer
-                                    <span class="elemt">
-                                        <select class="elemt" id='add_sel_elt_dp'
-                                            onchange="set_sel_number('add_sel_elt_dp', 'add_sel_id_dp', '')"></select>
-                                        _
-                                        <select class="elemt" id='add_sel_id_dp'>
-                                        </select>
-                                    </span>
-                                    &agrave; broche
-                                    <span class="pin">
-                                        <select class="pin" id='add_sel_pin_dp'>
-                                        </select> </span>
+                    </div>
+                    <div id="add_dp" class="instructions div_inline">
+                        <div class="divins2">
+                            <span class="declare"> &nbsp Associer &nbsp
+                                <span class="elemt">
+                                    <select class="elemt" id='add_telt_dp'
+                                        onchange="set_sel_number('add_telt_dp', 'add_idelt_dp', '')"></select>
+                                    _
+                                    <select class="elemt" id='add_idelt_dp'>
+                                    </select>
                                 </span>
-                                <a onclick="add_maj();"><img class="validate" src="../img/validate.png" /></a>
-                            </div>
+                                <span class="declare"> &nbsp &agrave; broche &nbsp </span>
+                                <span class="pin">
+                                    <select class="pin" id='add_pin_dp'>
+                                    </select>
+                                </span>
+                            </span>
+                            <span>
+                                &nbsp &nbsp
+                                <a onclick="add_maj();"><img class="validate" src="../img/validate.jpg" /></a>
+                                &nbsp &nbsp
+                                <a onclick="$('#addelt').modal('hide');"><img class="validate"
+                                        src="../img/error.jpg" /></a>
+                            </span>
                         </div>
-                        <div id='add_dv' class="instructions div_inline">
-                            <div class="divins2">
-                                <span class="declare"> Définir
-                                    <span class="elemt">
-                                        <input class="elemt" id='add_var_dv' type="text" />
-                                    </span>
-                                    valorisé à
-                                    <span class="value">
-                                        <input class="value" id='add_val_dv' type="text" />
-                                    </span>
+                    </div>
+                    <div id='add_dv' class="instructions div_inline">
+                        <div class="divins2">
+                            <span class="declare"> &nbsp Définir &nbsp
+                                <span class="elemt">
+                                    <input class="elemt" id='add_elt_dv' type="text" size="10"
+                                        placeholder="Variable ?" />
                                 </span>
-                                <a onclick="add_maj();"><img class="validate" src="../img/validate.png" /></a>
-                            </div>
+                                <span class="declare"> &nbsp valorisé à &nbsp </span>
+                                <span>
+                                    &nbsp
+                                    <select id="sel_elt1_dv" onchange="aff_spanelt('elt1_dv');">
+                                        <option value='val'>Saisie</option>
+                                        <option value='cst'>Constante</option>
+                                        <option value='elt'>Var/Ext.</option>
+                                    </select>
+                                </span>
 
-                        </div>
-                        <div id='add_av' class="instructions div_inline">
-                            <div class="divins2">
-                                <span class="action"> Valoriser
-                                    <span class="elemt">
-                                        <select class="elemt" id='add_sel_elt1_av'></select>
-                                    </span>
-                                    &agrave;
-                                    <span>
-                                        <span class="value">
-                                            <input class="value" id='add_val_av' type="text" />
-                                        </span>
-                                        <span class="elemt">
-                                            <select class="elemt" id='add_sel_elt2_av'></select>
-                                        </span>
-                                    </span>
+                                <span id="span_elt1_dv_val" class="value">
+                                    <input class="value" id='add_elt1_dv_val' type="text" size="10"
+                                        placeholder="Valeur ?" />
                                 </span>
-                                <a onclick="add_maj();"><img class="validate" src="../img/validate.png" /></a>
-                            </div>
-                        </div>
-                        <div id='add_at' class="instructions div_inline">
-                            <div class="divins2">
-                                <span class="action"> Attendre
-                                    <span class="value">
-                                        <input class="value" id='add_val_at' type="text" />
-                                    </span>
-                                    <span class="elemt">
-                                        <select class="elemt" id='add_sel_elt1_at'></select>
-                                    </span>
-                                    s
-                                </span>
-                                <a onclick="add_maj();"><img class="validate" src="../img/validate.png" /></a>
-                            </div>
-                        </div>
-                        <div id='add_ac' class="instructions div_inline">
-                            <div class="divins2">
-                                <span class="action"> Calculer
-                                    <span class="elemt">
-                                        <select class="elemt" id='add_sel_elt1_ac'></select>
-                                    </span>
-                                    =
-                                    <span class="elemt">
-                                        <select class="elemt" id='add_sel_elt2_ac'></select>
-                                    </span>
-                                    <select class="cond" id='add_sel_ope_ac'>
+                                <span id="span_elt1_dv_cst" class="value">
+                                    <select class="value" id='add_elt1_dv_cst'>
+                                        <option value="LOW">LOW</option>
+                                        <option value="HIGH">HIGH</option>
+                                        <option value="REVERSE">REVERSE</option>
                                     </select>
-                                    <span class="value">
-                                        <input class="value" id='add_val_ac' type="text" />
-                                    </span>
-                                    <span class="elemt">
-                                        <select class="elemt" id='add_sel_elt3_ac'></select>
-                                    </span>
                                 </span>
-                                <a onclick="add_maj();"><img class="validate" src="../img/validate.png" /></a>
-                            </div>
-                        </div>
-                        <div id='add_ae' class="instructions div_inline">
-                            <div class="divins2">
-                                <span class="action"> Exécuter
-                                    <span class="fct">
-                                        <select class="fct" id='add_sel_fct_ae'></select>
-                                    </span>
-                                    (
-                                    <span class="elemt">
-                                        <select class="elemt" id='add_sel_elt2_ac'></select>
-                                    </span>
-                                    ,
-                                    <span class="value">
-                                        <input class="value" id='add_val_ac' type="text" />
-                                    </span>
-                                    )
+                                <span id="span_elt1_dv_elt" class="elemt">
+                                    <select class="elemt" id='add_elt1_dv_elt'></select>
                                 </span>
-                                <a onclick="add_maj();"><img class="validate" src="../img/validate.png" /></a>
-                            </div>
+                            </span>
+                            <span>
+                                &nbsp &nbsp
+                                <a onclick="add_maj();"><img class="validate" src="../img/validate.jpg" /></a>
+                                &nbsp &nbsp
+                                <a onclick="$('#addelt').modal('hide');"><img class="validate"
+                                        src="../img/error.jpg" /></a>
+                            </span>
                         </div>
-                        <div id='add_ci' class="instructions div_inline">
-                            <div class="divins2">
-                                <span class="cond"> Quand
-                                    <span class="elemt">
-                                        <select class="elemt" id='add_sel_elt1_ci'></select>
-                                    </span>
-                                    <select class="cond" id='add_sel_ope_ci'>
+
+                    </div>
+                    <div id='add_av' class="instructions div_inline">
+                        <div class="divins2">
+                            <span class="action">
+                                <span class="action">
+                                    Valoriser
+                                </span>
+                                <span class="elemt">
+                                    <select class="elemt" id='add_elt_av'></select>
+                                </span>
+                                <span class="action"> &nbsp &agrave; &nbsp </span>
+                                <span>
+                                    &nbsp
+                                    <select id="sel_elt1_av" onchange="aff_spanelt('elt1_av');">
+                                        <option value='val'>Saisie</option>
+                                        <option value='cst'>Constante</option>
+                                        <option value='elt'>Var/Ext.</option>
                                     </select>
-                                    <span class="value">
-                                        <input class="value" id='add_val_ci' type="text" />
-                                    </span>
-                                    <span class="elemt">
-                                        <select class="elemt" id='add_sel_elt2_ci'></select>
-                                    </span>
-                                    faire :
                                 </span>
-                                <a onclick="add_maj();"><img class="validate" src="../img/validate.png" /></a>
-                            </div>
-                        </div>
-                        <div id='add_cw' class="instructions div_inline">
-                            <div class="divins2">
-                                <span class="cond"> Tant que
-                                    <span class="elemt">
-                                        <select class="elemt" id='add_sel_elt1_cw'></select>
-                                    </span>
-                                    <select class="cond" id='add_sel_ope_cw'>
+
+                                <span id="span_elt1_av_val" class="value">
+                                    <input class="value" id='add_elt1_av_val' type="text" size="10"
+                                        placeholder="Valeur ?" />
+                                </span>
+                                <span id="span_elt1_av_cst" class="value">
+                                    <select class="value" id='add_elt1_av_cst'>
+                                        <option value="LOW">LOW</option>
+                                        <option value="HIGH">HIGH</option>
+                                        <option value="REVERSE">REVERSE</option>
                                     </select>
-                                    <span class="value">
-                                        <input class="value" id='add_val_cw' type="text" />
-                                    </span>
-                                    <span class="elemt">
-                                        <select class="elemt" id='add_sel_elt2_cw'></select>
-                                    </span>
-                                    faire :
                                 </span>
-                                <a onclick="add_maj();"><img class="validate" src="../img/validate.png" /></a>
-                            </div>
-                        </div>
-                        <div id='add_ce' class="instructions div_inline">
-                            <div class="divins2">
-                                <span class="cond"> Sinon faire :
+                                <span id="span_elt1_av_elt" class="elemt">
+                                    <select class="elemt" id='add_elt1_av_elt'></select>
                                 </span>
-                                <a onclick="add_maj();"><img class="validate" src="../img/validate.png" /></a>
-                            </div>
+                            </span>
+                            <span>
+                                &nbsp &nbsp
+                                <a onclick="add_maj();"><img class="validate" src="../img/validate.jpg" /></a>
+                                &nbsp &nbsp
+                                <a onclick="$('#addelt').modal('hide');"><img class="validate"
+                                        src="../img/error.jpg" /></a>
+                            </span>
                         </div>
-                        <div id='add_fd' class="instructions div_inline">
-                            <div class="divins2">
-                                <span class="fct"> Fonction
-                                    <span class="fct">
-                                        <input class="fct" id='add_fct_fd' type="text" />
-                                    </span>
-                                    (
-                                    <span id="add_zarg_fd"></span>
-                                    )
+                    </div>
+                    <div id='add_at' class="instructions div_inline">
+                        <div class="divins2">
+                            <span class="action">
+                                <span class="action"> &nbsp Attendre &nbsp </span>
+                                <span>
+                                    &nbsp
+                                    <input id='add_elt_at' type="text" hidden />
+                                    <select id="sel_elt1_at" onchange="aff_spanelt('elt1_at');">
+                                        <option value='val'>Saisie</option>
+                                        <option value='elt'>Var/Ext.</option>
+                                    </select>
                                 </span>
-                                <input hidden id='add_nbarg_fd' type="number" />
-                                <a onclick="add_arg_fd();"><img class="validate"
-                                        src="../img/plussquare_120280.png" /></a>
-                                <a onclick="add_maj();"><img class="validate" src="../img/validate.png" /></a>
-                            </div>
-                        </div>
-                        <div id='add_ff' class="instructions div_inline">
-                            <div class="divins2">
-                                <span class="fct"> Fin fonction
+
+                                <span id="span_elt1_at_val" class="value">
+                                    <input class="value" id='add_elt1_at_val' type="text" size="10"
+                                        placeholder="Valeur ?" />
                                 </span>
-                                <a onclick="add_maj();"><img class="validate" src="../img/validate.png" /></a>
-                            </div>
+                                <span id="span_elt1_at_elt" class="elemt">
+                                    <select class="elemt" id='add_elt1_at_elt'></select>
+                                </span>
+
+                            </span>
+                            <span>
+                                &nbsp &nbsp
+                                <a onclick="add_maj();"><img class="validate" src="../img/validate.jpg" /></a>
+                                &nbsp &nbsp
+                                <a onclick="$('#addelt').modal('hide');"><img class="validate"
+                                        src="../img/error.jpg" /></a>
+                            </span>
                         </div>
+                    </div>
+                </div>
+                <div id='add_ac' class="instructions div_inline">
+                    <div class="divins2">
+                        <span class="action">
+                            <span class="action"> Calculer </span>
+                            <span class="elemt">
+                                <select class="elemt" id='add_elt_ac'></select>
+                            </span>
+                            <span class="action"> &nbsp = &nbsp </span>
+                            <span hidden>
+                                &nbsp
+                                <select id="sel_elt1_ac" onchange="aff_spanelt('elt1_ac');">
+                                    <option value='elt'>Var/Ext.</option>
+                                </select>
+                            </span>
+                            <span id="span_elt1_ac_elt" class="elemt">
+                                <select class="elemt" id='add_elt1_ac_elt'></select>
+                            </span>
+                            <span class="action"><select class="action" id='add_ope_ac'></select></span>
+
+                            </select>
+                            <span>
+                                &nbsp
+                                <select id="sel_elt2_ac" onchange="aff_spanelt('elt2_ac');">
+                                    <option value='val'>Saisie</option>
+                                    <option value='cst'>Constante</option>
+                                    <option value='elt'>Var/Ext.</option>
+                                </select>
+                            </span>
+
+                            <span id="span_elt2_ac_val" class="value">
+                                <input class="value" id='add_elt2_ac_val' type="text" size="10"
+                                    placeholder="Valeur ?" />
+                            </span>
+                            <span id="span_elt2_ac_cst" class="value">
+                                <select class="value" id='add_elt2_ac_cst'>
+                                    <option value="LOW">LOW</option>
+                                    <option value="HIGH">HIGH</option>
+                                    <option value="REVERSE">REVERSE</option>
+                                </select>
+                            </span>
+                            <span id="span_elt2_ac_elt" class="elemt">
+                                <select class="elemt" id='add_elt2_ac_elt'></select>
+                            </span>
+                        </span>
+                        <span>
+                            &nbsp &nbsp
+                            <a onclick="add_maj();"><img class="validate" src="../img/validate.jpg" /></a>
+                            &nbsp &nbsp
+                            <a onclick="$('#addelt').modal('hide');"><img class="validate" src="../img/error.jpg" /></a>
+                        </span>
+                    </div>
+                </div>
+                <div id='add_ae' class="instructions div_inline">
+                    <div class="divins2">
+                        <span class="action"> Exécuter
+                            <span class="fct">
+                                <select class="fct" id='add_fct_ae'></select>
+                            </span>
+                            ( &nbsp )
+                        </span>
+                        <span>
+                            &nbsp &nbsp
+                            <a onclick="add_maj();"><img class="validate" src="../img/validate.jpg" /></a>
+                            &nbsp &nbsp
+                            <a onclick="$('#addelt').modal('hide');"><img class="validate" src="../img/error.jpg" /></a>
+                        </span>
+                    </div>
+                </div>
+                <div id='add_ci' class="instructions div_inline">
+                    <div class="divins2">
+                        <span class="cond"> Quand
+                            <span class="elemt">
+                                <select class="elemt" id='add_elt_ci'></select>
+                            </span>
+                            <select class="cond" id='add_ope_ci'>
+                            </select>
+                            <span>
+                                &nbsp
+                                <select id="sel_elt1_ci" onchange="aff_spanelt('elt1_ci');">
+                                    <option value='val'>Saisie</option>
+                                    <option value='cst'>Constante</option>
+                                    <option value='elt'>Var/Ext.</option>
+                                </select>
+                            </span>
+
+                            <span id="span_elt1_ci_val" class="value">
+                                <input class="value" id='add_elt1_ci_val' type="text" size="10"
+                                    placeholder="Valeur ?" />
+                            </span>
+                            <span id="span_elt1_ci_cst" class="value">
+                                <select class="value" id='add_elt1_ci_cst'>
+                                    <option value="LOW">LOW</option>
+                                    <option value="HIGH">HIGH</option>
+                                    <option value="REVERSE">REVERSE</option>
+                                </select>
+                            </span>
+                            <span id="span_elt1_ci_elt" class="elemt">
+                                <select class="elemt" id='add_elt1_ci_elt'></select>
+                            </span>
+                            faire :
+                        </span>
+                        <td>
+                            &nbsp &nbsp
+                            <a onclick="add_maj();"><img class="validate" src="../img/validate.jpg" /></a>
+                            &nbsp &nbsp
+                            <a onclick="$('#addelt').modal('hide');"><img class="validate" src="../img/error.jpg" /></a>
+                        </td>
+                    </div>
+                </div>
+                <div id='add_cw' class="instructions div_inline">
+                    <div class="divins2">
+                        <span class="cond"> Tant que
+                            <span class="elemt">
+                                <select class="elemt" id='add_elt_cw'></select>
+                            </span>
+                            <select class="cond" id='add_ope_cw'>
+                            </select>
+                            <span>
+                                &nbsp
+                                <select id="sel_elt1_cw" onchange="aff_spanelt('elt1_cw');">
+                                    <option value='val'>Saisie</option>
+                                    <option value='cst'>Constante</option>
+                                    <option value='elt'>Var/Ext.</option>
+                                </select>
+                            </span>
+
+                            <span id="span_elt1_cw_val" class="value">
+                                <input class="value" id='add_elt1_cw_val' type="text" size="10"
+                                    placeholder="Valeur ?" />
+                            </span>
+                            <span id="span_elt1_cw_cst" class="value">
+                                <select class="value" id='add_elt1_cw_cst'>
+                                    <option value="LOW">LOW</option>
+                                    <option value="HIGH">HIGH</option>
+                                    <option value="REVERSE">REVERSE</option>
+                                </select>
+                            </span>
+                            <span id="span_elt1_cw_elt" class="elemt">
+                                <select class="elemt" id='add_elt1_cw_elt'></select>
+                            </span>
+                            faire :
+                        </span>
+                        <td>
+                            &nbsp &nbsp
+                            <a onclick="add_maj();"><img class="validate" src="../img/validate.jpg" /></a>
+                            &nbsp &nbsp
+                            <a onclick="$('#addelt').modal('hide');"><img class="validate" src="../img/error.jpg" /></a>
+                        </td>
+                    </div>
+                </div>
+                <div id='add_ce' class="instructions div_inline">
+                    <div class="divins2">
+                        <span class="cond"> Sinon faire :
+                        </span>
+                        &nbsp &nbsp
+                        <a onclick="add_maj();"><img class="validate" src="../img/validate.jpg" /></a>
+                        &nbsp &nbsp
+                        <a onclick="$('#addelt').modal('hide');"><img class="validate" src="../img/error.jpg" /></a>
+                    </div>
+                </div>
+                <div id='add_fd' class="instructions div_inline">
+                    <div class="divins2">
+                        <span class="fct"> Fonction
+                            <span class="fct">
+                                <input class="fct" id='add_fct_fd' type="text" />
+                            </span>
+                            (
+                            <span id="add_zarg_fd"> &nbsp </span>
+                            )
+                        </span>
+                        &nbsp &nbsp
+                        <a onclick="add_maj();"><img class="validate" src="../img/validate.jpg" /></a>
+                        &nbsp &nbsp
+                        <a onclick="$('#addelt').modal('hide');"><img class="validate" src="../img/error.jpg" /></a>
+                    </div>
+                </div>
+                <div id='add_ff' class="instructions div_inline">
+                    <div class="divins2">
+                        <span class="fct">
+                            <span class="fct"> Fin fonction
+                            </span>
+                        </span>
+                        &nbsp &nbsp
+                        <a onclick="add_maj();"><img class="validate" src="../img/validate.jpg" /></a>
+                        &nbsp &nbsp
+                        <a onclick="$('#addelt').modal('hide');"><img class="validate" src="../img/error.jpg" /></a>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    </div>
     </div>
 
     <div class="modal fade" id="message" tabindex="-1" role="document" aria-hidden="false">
@@ -409,6 +554,23 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="zliste_projets" tabindex="-1" role="document" aria-hidden="false">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="msgtit" id="add_title">Sélectionner le projet à ouvrir</div>
+                <div class="modal-body">
+                    <select id="liste_projets" size="8"></select>
+                </div>
+                <p>
+                    <a onclick="read();"><img class="validate" src="../img/validate.jpg" /></a>
+                    &nbsp &nbsp
+                    <a onclick="$('#zliste_projets').modal('hide');"><img class="validate" src="../img/error.jpg" /></a>
+                </p>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>

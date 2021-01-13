@@ -1,13 +1,98 @@
 
-ELT_EXTERNES_TYPES = {  'LED': { 'mode': 'O', 'lmode': 'OUTPUT'}, 
-                        'BUZZER': { 'mode': 'O', 'lmode': 'OUTPUT'}, 
-                        'RELAIS': { 'mode': 'O', 'lmode': 'OUTPUT'},
-                        'SERVO' : { 'mode': 'O', 'lmode': 'OUTPUT'}, 
-                        'MOTEUR': { 'mode': 'O', 'lmode': 'OUTPUT'}, 
-                        'INTER' : { 'mode': 'I', 'lmode': 'INPUT'},
-                        'SONAR' : { 'mode': 'I', 'lmode': 'INPUT'}
+DEFINITIONS_types = 
+            { 'dp':  
+                {   'class': 'define', 
+                    'titre': 'Déclarer un élément externe branché sur une broche',
+                    'text' : ['Associer', 'à broche' ],
+                    'elts' : [ 9, 8, 0, 0, 9, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                },
+            'dv':  
+                {   'class': 'define', 
+                    'titre': 'Ajouter une variable',
+                    'text' : ['Définir', 'valorisé à' ],
+                    'elts' : [ 9, 0, 8, 0, 9, 0, 0, 0, 1, 1, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            'av': 
+                {   'class': 'action', 
+                    'titre': 'Ajouter une action de valorisation',
+                    'text' : ['Valoriser', 'à' ],
+                    'elts' : [ 9, 0, 0, 2, 9, 0, 0, 0, 1, 1, 2, 2, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            'at': 
+                {   'class': 'action',
+                    'titre': 'Ajouter une action de temporisation', 
+                    'text' : ['Attendre', 's' ],
+                    'elts' : [ 9, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            'ac':  
+                {   'class': 'action',
+                    'titre': 'Ajouter une action de calcul', 
+                    'text' : ['Calculer', '=' ],
+                    'elts' : [ 9, 0, 0, 2, 9, 0, 0, 0, 1, 1, 2, 2, 3, 3, 1, 1, 1, 2, 2, 3, 3, 0, 0]
+            },
+            'ae': 
+                {   'class': 'define', 
+                    'titre': 'Exécuter une fonction',
+                    'text' : ['Associer', 'à broche' ],
+                    'elts' : [ 9, 8, 0, 0, 9, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        },
+    
+            'ci': 
+            {   'class': 'define', 
+            'titre': 'Ajouter une condition pour exécuter un bloc',
+            'text' : ['Associer', 'à broche' ],
+            'elts' : [ 9, 8, 0, 0, 9, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        },
+            'ce': 
+            {   'class': 'define', 
+            'titre': 'Ajouter inverse pour exécuter un bloc',
+            'text' : ['Associer', 'à broche' ],
+            'elts' : [ 9, 8, 0, 0, 9, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        },
+            'cw':
+            {   'class': 'define', 
+            'titre': 'Ajouter une boucle pour répéter un bloc',
+            'text' : ['Associer', 'à broche' ],
+            'elts' : [ 9, 8, 0, 0, 9, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        },
+            'fd': 
+            {   'class': 'define', 
+            'titre': 'Déclarer une nouvelle fonction',
+            'text' : ['Associer', 'à broche' ],
+            'elts' : [ 9, 8, 0, 0, 9, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        },
+            'ff': 
+            {   'class': 'define', 
+            'titre': 'Ajouter fin de fonction',
+            'text' : ['Associer', 'à broche' ],
+            'elts' : [ 9, 8, 0, 0, 9, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        },
+
+            }
+TEMPLATE_Ids = ['td_add_txt1', 'td_add_dev1', 'td_add_var0', 'td_add_elt0', 
+                'td_add_txt2', 'td_add_opcond', 
+                'td_add_pin1', 'td_add_pin2', 
+                'td_add_rad_val1', 'td_add_val1',
+                'td_add_rad_cst1', 'td_add_cst1', 
+                'td_add_rad_elt1', 'td_add_elt1',
+                'td_add_opcalc',
+                'td_add_rad_val1', 'td_add_val1',
+                'td_add_rad_cst1', 'td_add_cst1', 
+                'td_add_rad_elt1', 'td_add_elt1'
+        ]
+
+CONSTANT_VALUES = [ 'LOW', 'HIGH', 'REVERSE' ]
+
+ELT_EXTERNES_TYPES = {  'LED':    { 'mode': 'O', 'lmode': 'OUTPUT', 'nbpin': 1}, 
+                        'BUZZER': { 'mode': 'O', 'lmode': 'OUTPUT', 'nbpin': 1}, 
+                        'RELAIS': { 'mode': 'O', 'lmode': 'OUTPUT', 'nbpin': 1},
+                        'SERVO' : { 'mode': 'O', 'lmode': 'OUTPUT', 'nbpin': 1}, 
+                        'MOTEUR': { 'mode': 'O', 'lmode': 'OUTPUT', 'nbpin': 2}, 
+                        'INTER' : { 'mode': 'I', 'lmode': 'INPUT' , 'nbpin': 1},
+                        'SONAR' : { 'mode': 'I', 'lmode': 'INPUT' , 'nbpin': 1}
                     }
-PIN_AUTHORIZED = {  '3': {'free':true},
+PIN_AUTHORIZED = {  '2': {'free':true},
+                    '3': {'free':true},
                     '4': {'free':true},
                     '5': {'free':true},
                     '6': {'free':true},
@@ -20,18 +105,18 @@ PIN_AUTHORIZED = {  '3': {'free':true},
                     '13': {'free':true},
                     '14': {'free':true}
                     };
-CONDITIONAL_OPE = [ '=', '&lt;&gt;', '&lt', '&lt=', '&gt', '&gt='];
-COMPUTATIONAL_OPE = [ '+', '-', '*', '/', 'mod'];
+CONDITIONAL_OPE = [ '=', '<>', '<', '<=', '>', '>='];
+COMPUTATIONAL_OPE = [ '+', '-', '*', '/'];
 
 elements_defined = {}
 
-function_defined = {}
+function_defined = []
 
 instructions_defined = {
-    'fct' : [],
     'init' : [],
-    'loop' : []
-}
+    'loop' : [],
+    'fct' : []
+};
 
 function get_sel_options(trt, valmaj) {
     console.log('get_sel_options   '+trt+'   '+valmaj)
@@ -39,6 +124,7 @@ function get_sel_options(trt, valmaj) {
     _valmaj = valmaj;
     _selected = ''
     if (valmaj == '') _selected = ' selected';
+    output.push('<option value=""'+_selected+'></option>');
     // 1. Les types d'elements externes
     if (trt == 1) {
         $.each(ELT_EXTERNES_TYPES, function(key, value) {
@@ -95,7 +181,7 @@ function get_sel_options(trt, valmaj) {
         });
     } 
     // 7. Tous les elements connus
-    if (trt == 6) {
+    if (trt == 7) {
         $.each(elements_defined, function(key, value) {
             if (valmaj == value) _selected = ' selected';
             output.push('<option value="'+ value +'"'+_selected+'>'+ value +'</option>');
@@ -103,8 +189,16 @@ function get_sel_options(trt, valmaj) {
         });
     } 
     // 8. Les fonctions connues
-    if (trt == 6) {
+    if (trt == 8) {
         $.each(function_defined, function(key, value) {
+            if (valmaj == value) _selected = ' selected';
+            output.push('<option value="'+ value +'"'+_selected+'>'+ value +'</option>');
+            _selected = '';
+        });
+    } 
+    // 9. Les constantes connues
+    if (trt == 9) {
+        $.each(CONSTANT_VALUES, function(key, value) {
             if (valmaj == value) _selected = ' selected';
             output.push('<option value="'+ value +'"'+_selected+'>'+ value +'</option>');
             _selected = '';
@@ -115,18 +209,26 @@ function get_sel_options(trt, valmaj) {
 }
 
 function set_sel_number(sel_typ, sel_num, valmaj) {
-    _type = $('#'+sel_typ).val();
+    var _telt = $('#'+sel_typ).val();
     var output = [];
     if (valmaj == '') _selected = ' selected';
     else _valmaj = valmaj.substr(valmaj.indexOf('_')+1);
     for (i=1; i<10; i++) {
-        if (! elements_defined.hasOwnProperty(_type+'_'+i) || _valmaj == i ) {
+        if (! elements_defined.hasOwnProperty(_telt+'_'+i) || _valmaj == i ) {
             if (_valmaj == i) _selected = ' selected';
             output.push('<option value="'+ i +'"'+_selected+'>'+ i +'</option>');
             _selected = '';
         }
     }
     $('#'+sel_num).html(output.join(''));
+}
+
+function aff_spanelt(idsel) {
+    //console.log($('#span_'+idsel+'_val').html())
+    $('#span_'+idsel+'_val').hide();
+    $('#span_'+idsel+'_cst').hide();
+    $('#span_'+idsel+'_elt').hide();
+    $('#span_'+idsel+'_'+$('#sel_'+idsel).val()).show();
 }
 
 function add(type, section, idelt) {
@@ -150,103 +252,77 @@ function add(type, section, idelt) {
         _type = _inst.tins;
         _maj = true;
     } else {
-        console.log('Creation nouveau ');
+        console.log('Creation nouveau '+type);
         _inst = {'tins': type,
-             'word1': '',
-             'word2': '',
-             'word3': '',
-             'elt1' : '',
-             'elt2' : '',
-             'elt3' : '',
-             'ope'  : '',
-             'val1' : '',
-             'val2' : '',
-             'val3' : '',
-             'pin'  : '',
-             'pin_mode' : '',
-             'fct'  : '',
-             'nbarg': 0 ,
-             'block': false            
-            };
+        'elt'  : '',
+        'telt1' : '',
+        'telt2' : '',
+        'elt1' : '',
+        'elt2' : '',
+        'ope'  : '',
+        'pin'  : '',
+        'pin_mode' : '',
+        'fct'  : '',
+        'nbarg': 0 ,
+        'block': false            
+                };
         _type = type;
         _maj = false;
         $('#maj_idins').val('');
     }
     $('#add_type').val(_type);
-    if (_type =='dp') {
-        $('#add_title').html('Déclarer un élément externe branché sur une broche');
-        $('#add_sel_elt_dp').html(get_sel_options(1, _inst.elt1));
-        set_sel_number('add_sel_elt_dp', 'add_sel_id_dp', _inst.elt1);
-        $('#add_sel_pin_dp').html(get_sel_options(4, _inst.pin));
-        $('#add_dp').show();
-    } else
-    if (_type =='dv') {
-        $('#add_title').html('Ajouter une variable ');
-        $('#add_var_dv').val(_inst.elt1)
-        $('#add_val_dv').val(_inst.val1)
-        $('#add_dv').show();
-    } else
-    if (_type =='av') {
-        $('#add_title').html('Ajouter une action de valorisation');
-        $('#add_sel_elt1_av').html(get_sel_options(2, _inst.elt1));
-        $('#add_sel_elt2_av').html(get_sel_options(3, _inst.elt2));
-        $('#add_val_av').val(_inst.val1)
-        $('#add_av').show();
-    } else
-    if (_type =='at') {
-        $('#add_title').html('Ajouter une action de temporisation');
-        $('#add_sel_elt1_at').html(get_sel_options(3, _inst.elt1));
-        $('#add_val_at').val(_inst.val1)
-        $('#add_at').show();
-    } else
-    if (_type =='ac') {
-        $('#add_title').html('Ajouter une action de calcul');
-        $('#add_sel_elt1_ac').html(get_sel_options(2, _inst.elt1));
-        $('#add_sel_ope_ac').html(get_sel_options(6, _inst.ope));
-        $('#add_sel_elt2_ac').html(get_sel_options(3, _inst.elt2));
-        $('#add_sel_elt3_ac').html(get_sel_options(3, _inst.elt3));
-        $('#add_val_ac').val(_inst.val1);
-        $('#add_ac').show();
-    } else
-    if (_type =='ae') {
-        $('#add_title').html('Exécuter une fonction');
-        $('#add_sel_fct_ae').html(get_sel_options(2, _inst.elt1));
-        $('#add_nbarg_ae').val(0);
-        $('#add_zarg_ae').html('');
-        $('#add_ae').show();
-    } else
-    if (_type =='ci') {
-        $('#add_title').html('Ajouter une condition pour exécuter un bloc');
-        $('#add_sel_elt1_ci').html(get_sel_options(3, _inst.elt1));
-        $('#add_sel_ope_ci').html(get_sel_options(5, _inst.ope));
-        $('#add_sel_elt2_ci').html(get_sel_options(3, _inst.elt2));
-        $('#add_val_ci').val(_inst.val1);
-        $('#add_ci').show();
-    } else
-    if (_type =='ce') {
-        $('#add_title').html('Ajouter inverse pour exécuter un bloc');
-        $('#add_sel_section').html('<option value="loop" selected>Séquence traitement</option>');
-        $('#add_ce').show();
-    } else
-    if (_type =='cw') {
-        $('#add_title').html('Ajouter une boucle pour répéter un bloc');
-        $('#add_sel_elt1_cw').html(get_sel_options(3, _inst.elt1));
-        $('#add_sel_ope_cw').html(get_sel_options(5, _inst.ope));
-        $('#add_sel_elt2_cw').html(get_sel_options(3, _inst.elt2));
-        $('#add_val_cw').val(_inst.val1);
-        $('#add_cw').show();
-    }else
-    if (_type =='fd') {
-        $('#add_title').html('Déclarer une nouvelle fonction');
-        $('#add_fct_fd').val('');
-        $('#add_nbarg_fd').val(0);
-        $('#add_zarg_fd').html('');
-        $('#add_fd').show();
-    } else
-    if (_type =='ff') {
-        $('#add_title').html('Ajouter fin de fonction');
-        $('#add_ff').show();
+
+    // type, numero et pin pout define pin
+    $('#add_title').html(DEFINITIONS_types[_type].titre);
+    if (_type == "dp") {
+        $('#add_telt_'+_type).html(get_sel_options(1, _inst.elt));
+        set_sel_number('add_telt_'+_type, 'add_idelt_'+_type, _inst.elt);
+        $('#add_pin_'+_type).html(get_sel_options(4, _inst.pin));
     }
+    // Element en maj
+    if (_type == "ci" || _type == "cw")
+        $('#add_elt_'+_type).html(get_sel_options(3, _inst.elt));
+    // Element en maj
+    else
+        $('#add_elt_'+_type).html(get_sel_options(2, _inst.elt));
+    // Fonction
+    if (_type == "ae")
+        $('#add_fct_'+_type).html(get_sel_options(8, _inst.fct));
+    // Operateur
+    console.log('_type  '+_type+"   ope  "+_inst.ope)
+    if (_type == "ac")
+        $('#add_ope_'+_type).html(get_sel_options(6, _inst.ope));
+    else  if (_type == "ci" || _type == "cw") {
+        $('#add_ope_'+_type).html(get_sel_options(5, _inst.ope));
+        console.log('_type  '+_type+"valo   ope  "+_inst.ope+"   "+get_sel_options(5, _inst.ope))
+    }
+    // Elements en lect
+    if (_inst.telt1 == 'val') $('#add_elt1_'+_type+'_val').val(_inst.elt1);
+    else $('#add_elt1_'+_type+'_val').val('');
+
+    if (_inst.telt1 == 'cst') $('#add_elt1_'+_type+'_cst').html(get_sel_options(9, _inst.elt1));
+    else $('#add_elt1_'+_type+'_cst').html(get_sel_options(9, ''));
+
+    if (_inst.telt1 == 'elt') $('#add_elt1_'+_type+'_elt').html(get_sel_options(3, _inst.elt1));
+    else  $('#add_elt1_'+_type+'_elt').html(get_sel_options(3, ''));
+
+    $('#sel_elt1_'+_type+' option[value="'+_inst.telt1+'"]').prop('selected', true);
+    aff_spanelt('elt1_'+_type);
+    
+    if (_inst.telt2 == 'val') $('#add_elt2_'+_type+'_val').val(_inst.elt2);
+    else $('#add_elt2_'+_type+'_val').val('');
+
+    if (_inst.telt2 == 'cst') $('#add_elt2_'+_type+'_cst').html(get_sel_options(9, _inst.elt2));
+    else $('#add_elt2_'+_type+'_cst').html(get_sel_options(9, ''));
+
+    if (_inst.telt2 == 'elt')  $('#add_elt2_'+_type+'_elt').html(get_sel_options(2, _inst.elt2));
+    else  $('#add_elt2_'+_type+'_elt').html(get_sel_options(3, ''));
+
+    $('#sel_elt2_'+_type+' option[value="'+_inst.telt2+'"]').prop('selected', true);
+    aff_spanelt('elt2_'+_type);
+
+    console.log('show : '+'#add_'+_type);
+    $('#add_'+_type).show();
     $('#addelt').modal('show');
 }
 
@@ -257,90 +333,44 @@ function add_maj() {
     _maj_idins = $('#maj_idins').val();
     console.log('add_maj   '+_type+'   '+_sect+'   '+_maj_section+'   '+_maj_idins);
     _inst = {'tins': _type,
-             'word1': '',
-             'word2': '',
-             'word3': '',
-             'elt1' : '',
-             'elt2' : '',
-             'elt3' : '',
-             'ope'  : '',
-             'val1' : '',
-             'val2' : '',
-             'val3' : '',
-             'pin'  : '',
-             'pin_mode' : '',
-             'fct'  : '',
-             'nbarg': 0 ,
-             'block': false            
-            };
+    'elt'  : '',
+    'telt1' : '',
+    'telt2' : '',
+    'elt1' : '',
+    'elt2' : '',
+    'ope'  : '',
+    'pin'  : '',
+    'pin_mode' : '',
+    'fct'  : '',
+    'nbarg': 0 ,
+    'block': false            
+   };
 
     if (_type =='dp') {
-        _device = $('#add_sel_elt_dp').val()
-        _inst.elt1 = _device+'_'+$('#add_sel_id_dp').val();
-        _inst.pin = $('#add_sel_pin_dp').val();
+        _device = $('#add_telt_dp').val();
+        _inst.elt = _device+'_'+$('#add_idelt_dp').val();
+        _inst.pin = $('#add_pin_dp').val();
         _inst.pin_mode = ELT_EXTERNES_TYPES[_device].lmode;
-        elements_defined[_inst.elt1] = {};
-        elements_defined[_inst.elt1].mode = ELT_EXTERNES_TYPES[$('#add_sel_elt_dp').val()].mode;
+        elements_defined[_inst.elt] = {};
+        elements_defined[_inst.elt].mode = ELT_EXTERNES_TYPES[$('#add_telt_dp').val()].mode;
         PIN_AUTHORIZED[_inst.pin].free = false;
-    } else
-    if (_type =='dv') {
-        _inst.elt1 = $('#add_var_dv').val();
-        _inst.val1 = $('#add_val_dv').val();
-        elements_defined[_inst.elt1] = {};
-        elements_defined[_inst.elt1].mode= 'IO';
-    } else
-    if (_type =='av') {
-        _inst.elt1 = $('#add_sel_elt1_av').val();
-        _inst.elt2 = $('#add_sel_elt2_av').val();
-        _inst.val1 = $('#add_val_av').val();
-    } else
-    if (_type =='at') {
-        _inst.elt1 = $('#add_sel_elt1_at').val();
-        _inst.val1 = $('#add_val_at').val();
-    } else
-    if (_type =='ac') {
-        _inst.elt1 = $('#add_sel_elt1_ac').val();
-        _inst.elt2 = $('#add_sel_elt2_ac').val();
-        _inst.elt3 = $('#add_sel_elt3_ac').val();
-        _inst.val1 = $('#add_val_ac').val();
-        _inst.ope = $('#add_sel_ope_ac').val();
-    } else
-    if (_type =='ae') {
-        _inst.fct  = $('#add_sel_fct_fd').val();
-        _inst.nbarg = $('#add_nbarg_fd').val();
-        if (_inst.nbarg > 0) {
-            _inst.elt1 = $('#add_sel_elt1_fd').val();
-            _inst.val1 = $('#add_val1_fd').val();
+    } else {
+        _inst.elt = $('#add_elt_'+_type).val();
+        console.log('#sel_elt1'+_type);
+        _inst.telt1 = $('#sel_elt1_'+_type).val();
+        _inst.elt1 = $('#add_elt1_'+_type+'_'+_inst.telt1).val();
+        console.log('_inst.telt1  '+_inst.telt1+'   _inst.elt1   '+_inst.elt1);
+        _inst.telt2 = $('#sel_elt2_'+_type).val();
+        _inst.elt2 = $('#add_elt2_'+_type+'_'+_inst.telt2).val();
+         _inst.ope = $('#add_ope_'+_type).val();
+        _inst.fct  = $('#add_fct_'+_type).val();
+        if (_type == 'dv') {
+            elements_defined[_inst.elt] = {};
+            elements_defined[_inst.elt].mode= 'IO';
         }
-        if (_inst.nbarg > 1) {
-            _inst.elt2 = $('#add_sel_elt2_fd').val();
-            _inst.val2 = $('#add_val2_fd').val();
+        if (_type =='fd') {
+            function_defined [_inst.fct] = 1;
         }
-        if (_inst.nbarg > 2) {
-            _inst.elt3 = $('#add_sel_elt3_fd').val();
-            _inst.val3 = $('#add_val3_fd').val();
-        }
-    }else
-    if (_type =='ci') {
-        _inst.elt1 = $('#add_sel_elt1_ci').val();
-        _inst.elt2 = $('#add_sel_elt2_ci').val();
-        _inst.val1 = $('#add_val_ci').val();
-        _inst.ope = $('#add_sel_ope_ci').val();
-    } else
-    if (_type =='ce') {
-    } else
-    if (_type =='cw') {
-        _inst.elt1 = $('#add_sel_elt1_cw').val();
-        _inst.elt2 = $('#add_sel_elt2_cw').val();
-        _inst.val1 = $('#add_val_cw').val();
-        _inst.ope = $('#add_sel_ope_cw').val();
-    } else
-    if (_type =='ff') {
-    } else
-    if (_type =='fd') {
-        _inst.fct = $('#add_fct_fd').val();
-        _inst.nbarg = $('#add_nbarg_fd').val();
-        function_defined [_inst.fct] = _inst.nbarg;
     }
     // Liberation d'un pin suite a modif
     if (_maj_idins != '' && instructions_defined[_maj_section][_maj_idins].pin != '' && instructions_defined[_maj_section][_maj_idins].pin != _inst.pin)
@@ -348,7 +378,7 @@ function add_maj() {
     
     // Re creation element externe declare suite a modif
     if (_maj_idins != '' && instructions_defined[_maj_section][_maj_idins].tins == 'dp' )
-        delete elements_defined[instructions_defined[_maj_section][_maj_idins].elt1]
+        delete elements_defined[instructions_defined[_maj_section][_maj_idins].elt]
 
     // Impact instruction modif ou creation
     if (_maj_idins == '')
@@ -403,49 +433,42 @@ function redraw_section(section) {
             output.push('<span class="cond tab1"> </span>');
         if (value.tins == "dp") {
             output.push('<span class="declare" onclick="add(\'\', \''+section+'\', '+key+')"> Associer <span class="elemt">');
-            output.push(value.elt1);
+            output.push(value.elt);
             output.push('</span> &agrave; broche <span class="pin"> ');
             output.push(value.pin); 
             output.push(' </span></span>');
         } else
         if (value.tins == "dv") {
             output.push('<span class="declare"onclick="add(\'\', \''+section+'\', '+key+')"> Définir <span class="elemt">');
-            output.push(value.elt1);
+            output.push(value.elt);
             output.push('</span> valorisé &agrave; ');
-            if (value.val1 == '') 
-                output.push('<span class="elemt"> '+value.elt2+' </span>'); 
-            else
-                output.push('<span class="value"> '+value.val1+' </span>');
+            if (value.telt1 == 'elt')  output.push('<span class="elemt"> '+value.elt1+' </span>'); 
+            else  output.push('<span class="value"> '+value.elt1+' </span>');
             output.push('</span>');
         } else
         if (value.tins == "av") {
             output.push('<span class="action"onclick="add(\'\', \''+section+'\', '+key+')"> Valoriser <span class="elemt"> ');
-            output.push(value.elt1);
+            output.push(value.elt);
             output.push(' </span> &nbsp &agrave; ');
-            if (value.val1 == '') 
-                output.push('<span class="elemt"> '+value.elt2); 
-            else
-                output.push('<span class="value"> '+value.val1);
-            output.push(' </span></span>');
+            if (value.telt1 == 'elt')  output.push('<span class="elemt"> '+value.elt1+' </span>'); 
+            else  output.push('<span class="value"> '+value.elt1+' </span>');
+            output.push(' </span>');
         } else
         if (value.tins == "at") {
             output.push('<span class="action"onclick="add(\'\', \''+section+'\', '+key+')"> Attendre ');
-            if (value.val1 == '') 
-                output.push('<span class="elemt"> '+value.elt1); 
-            else
-                output.push('<span class="value"> '+value.val1);
-            output.push(' </span> s </span>');
+            if (value.telt1 == 'elt')  output.push('<span class="elemt"> '+value.elt1+' </span>'); 
+            else  output.push('<span class="value"> '+value.elt1+' </span>');
+            output.push('  s </span>');
         } else
         if (value.tins == "ac") {
             output.push('<span class="action"onclick="add(\'\', \''+section+'\', '+key+')"> Calculer ');
-            output.push('<span class="elemt"> '+value.elt1+' </span>');
+            output.push('<span class="elemt"> '+value.elt+' </span>');
             output.push(' = '); 
-            output.push('<span class="elemt"> '+value.elt2+' </span> ');
+            if (value.telt1 == 'elt')  output.push('<span class="elemt"> '+value.elt1+' </span>'); 
+            else  output.push('<span class="value"> '+value.elt1+' </span>');
             output.push(value.ope);
-            if (value.val1 == '') 
-                output.push(' <span class="elemt"> '+value.elt3+' </span>'); 
-            else
-                output.push(' <span class="value"> '+value.val1+' </span>');
+            if (value.telt2 == 'elt')  output.push('<span class="elemt"> '+value.elt2+' </span>'); 
+            else  output.push('<span class="value"> '+value.elt2+' </span>');
             output.push(' </span>');
         } else
         if (value.tins == "ae") {
@@ -453,43 +476,29 @@ function redraw_section(section) {
             output.push('<span class="fct"> '+value.fct+' </span>');
             output.push(' ( '); 
             if (value.nbarg > 0) {
-                if (value.elt1 != '') 
-                    output.push(' <span class="elemt"> '+value.elt1+' </span>'); 
-                elif (value.val1 != '')
-                    output.push(' <span class="value"> '+value.val1+' </span>');
-            }
+                if (value.telt1 == 'elt')  output.push('<span class="elemt"> '+value.elt1+' </span>'); 
+                else  output.push('<span class="value"> '+value.elt1+' </span>');
+                    }
             if (value.nbarg > 1) {
-                if (value.elt2 != '') 
-                    output.push(' <span class="elemt"> '+value.elt2+' </span>'); 
-                elif (value.val2 != '')
-                    output.push(' <span class="value"> '+value.val2+' </span>');
-            }
-            if (value.nbarg > 2) {
-                if (value.elt3 != '') 
-                    output.push(' <span class="elemt"> '+value.elt3+' </span>'); 
-                elif (value.val3 != '')
-                    output.push(' <span class="value"> '+value.val3+' </span>');
-            }
+                if (value.telt2 == 'elt')  output.push('<span class="elemt"> '+value.elt2+' </span>'); 
+                else  output.push('<span class="value"> '+value.elt2+' </span>');
+                    }
             output.push(' ) </span>');
         } else
         if (value.tins == "ci") {
             output.push('<span class="cond"onclick="add(\'\', \''+section+'\', '+key+')"> Quand ');
-            output.push('<span class="elemt"> '+value.elt1+' </span>');
+            output.push('<span class="elemt"> '+value.elt+' </span>');
             output.push(value.ope); 
-            if (value.val1 == '') 
-                output.push('<span class="elemt"> '+value.elt2+' </span>'); 
-            else
-                output.push('<span class="value"> '+value.val1+' </span>');
+            if (value.telt1 == 'elt')  output.push('<span class="elemt"> '+value.elt1+' </span>'); 
+            else  output.push('<span class="value"> '+value.elt1+' </span>');
             output.push(' Faire : </span>');
         } 
         if (value.tins == "cw") {
             output.push('<span class="cond"onclick="add(\'\', \''+section+'\', '+key+')"> Tant que ');
-            output.push('<span class="elemt"> '+value.elt1+' </span>');
+            output.push('<span class="elemt"> '+value.elt+' </span>');
             output.push(value.ope); 
-            if (value.val1 == '') 
-                output.push('<span class="elemt"> '+value.elt2+' </span>'); 
-            else
-                output.push('<span class="value"> '+value.val1+' </span>');
+            if (value.telt1 == 'elt')  output.push('<span class="elemt"> '+value.elt1+' </span>'); 
+            else  output.push('<span class="value"> '+value.elt1+' </span>');
             output.push(' Faire : </span>');
         } 
         if (value.tins == "ce") {
@@ -503,10 +512,7 @@ function redraw_section(section) {
                output.push(' <span class="value"> &nbsp &nbsp &nbsp  </span>');
             }
             if (value.nbarg > 1) {
-                output.push(' <span class="value"> &nbsp &nbsp &nbsp  </span>')
-            }
-            if (value.nbarg > 2) {
-                output.push(' <span class="value"> &nbsp &nbsp &nbsp  </span>')
+                output.push(' <span class="value"> &nbsp &nbsp &nbsp  </span>');
             }
             output.push(' ) </span>');
         } else
@@ -540,7 +546,7 @@ function move_elt(sect, idelt, sectnew, idnew) {
         if (_elt.tins == 'dp' && _elt.pin != '') PIN_AUTHORIZED[_elt.pin].free = true;
         if (_elt.tins == 'dp' || _elt.tins == 'dv') {
             console.log('delete elements_defined   '+sect+'   '+idelt+'   '+sectnew+'   '+idnew);
-            delete elements_defined[_elt.elt1];
+            delete elements_defined[_elt.elt];
         }
         if (_elt.tins == 'fd') {
             console.log('delete function_defined   '+sect+'   '+idelt);
@@ -556,7 +562,7 @@ function move_elt(sect, idelt, sectnew, idnew) {
     });
     instructions_defined[sect] = _new_array;
     // Ajouter nouveau si pas poubelle
-    if (drop_sect != 'suppr') {
+    if (sectnew != 'suppr') {
         _new_array = [];
         $.each(instructions_defined[sectnew], function(key, value) {
             if (key == idnew) {
@@ -586,7 +592,7 @@ function drop(ev, sect, ktarget) {
     console.log('drop  to '+sect+'   '+ktarget);
     if (drag_korigin == -2)
         return;
-    if (sect == "trash") {
+    if (sect == "suppr") {
         move_elt(drag_sect, drag_korigin, sect, -1);
         redraw_section(drag_sect);
         return;
@@ -621,6 +627,9 @@ function allowDrop(ev, sect) {
     ev.preventDefault();
   }
 
+function initpage() {
+    $('#projet_name').val('');
+}
 function get_projet() {
     comobj = {}
     comobj.projet = {}
@@ -639,23 +648,30 @@ function set_projet(comobj) {
     console.log('set_projet  '+comobj.projet.name);
     console.log('set_projet  '+comobj.name);
     $('#projet_name').val(comobj.projet.name);
-    $('#sel_device').html('<option value="'+comobj.projet.device+'" selected>'+comobj.projet.device+'</option>');
-    $('#sel_firmware').val(comobj.projet.firmware);
-    $('#sel_port').val(comobj.projet.port);
+    $('#sel_device option[value="'+comobj.projet.device+'"]').prop('selected', true);
+    $('#sel_firmware option[value="'+comobj.projet.firmware+'"]').prop('selected', true);
+    $('#sel_port option[value="'+comobj.projet.port+'"]').prop('selected', true);
     instructions_defined = comobj.projet.instructions;
     elements_defined = comobj.projet.elements_defined;
     function_defined = comobj.projet.function_defined;
     PIN_AUTHORIZED = comobj.projet.PIN_AUTHORIZED;
 }
   
+function list() {
+    comobj = {}
+    comobj.projet = {}
+
+    send_cmd('list', comobj);
+}
+  
 function read() {
     comobj = {}
     comobj.projet = {}
-    comobj.projet.name = $('#projet_name').val();
-
+    comobj.projet.name = $('#liste_projets').val();
+    $('#zliste_projets').modal('hide');
     send_cmd('read', comobj);
 }
-  
+
 function save() {
     console.log('projet_name   '+$('#projet_name').val())
     if ($('#projet_name').val() == "") {
@@ -688,6 +704,10 @@ function send_cmd(cmd, data) {
                 erreur(comobj.lret);
                 return;
             }
+            if (comobj.cmd == 'list') {
+                redraw_list(comobj);
+                return;
+            }
             if (comobj.cmd == 'read') {
                 set_projet(comobj);
                 redraw_section('init');
@@ -703,6 +723,15 @@ function send_cmd(cmd, data) {
     };
     data.cmd = cmd;
     xhr.send(JSON.stringify(data));
+}
+
+function redraw_list(comobj) {
+    var output = [];
+    $.each(comobj.projets, function(key, value) {
+       output.push('<option value="'+ value +'">'+ value +'</option>');
+    });
+    $('#liste_projets').html(output.join(''));
+    $('#zliste_projets').modal('show');
 }
 
 function erreur(msg) {
