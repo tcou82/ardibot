@@ -92,13 +92,13 @@ class ServerHandler(BaseHTTPRequestHandler):
             _path_prj = os.path.join(_path_projets,self.comobj['projet']['name']+'.prj')
             with open(_path_prj, 'r') as _fprj:
                 self.comobj['projet'] = json.loads(_fprj.read())
-            self.comobj['lret'] = "Le projet a bien été récupéré"
+            self.comobj['lret'] = "Le projet a bien été importé"
         elif cmd == 'list':
             self.comobj['projets'] = []
             for _file in os.listdir(_path_projets):
                 if _file[-4:] == '.prj':
                     self.comobj['projets'].append(_file[:-4])
-            self.comobj['lret'] = "Le liste des projets a bien été récupérée"
+            self.comobj['lret'] = "La liste des projets a bien été récupérée"
 
     def traiter_demande(self, cmd):
         self.comobj['tmp'] = {}

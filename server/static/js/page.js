@@ -1,3 +1,4 @@
+comobj = { 'cret': '0', 'lret': ''};
 
 DEFINITIONS_types = 
             { 'dp':  
@@ -279,15 +280,20 @@ function add(type, section, idelt) {
         set_sel_number('add_telt_'+_type, 'add_idelt_'+_type, _inst.elt);
         $('#add_pin_'+_type).html(get_sel_options(4, _inst.pin));
     }
-    // Element en maj
+    // Element sel en maj
     if (_type == "ci" || _type == "cw")
         $('#add_elt_'+_type).html(get_sel_options(3, _inst.elt));
-    // Element en maj
-    else
+    // Element input
+    else if (_type == "dv")
+        $('#add_elt_'+_type).val(_inst.elt);
+    // Element ouput
+    else 
         $('#add_elt_'+_type).html(get_sel_options(2, _inst.elt));
     // Fonction
     if (_type == "ae")
         $('#add_fct_'+_type).html(get_sel_options(8, _inst.fct));
+    if (_type == "fd")
+        $('#add_fct_'+_type).val(_inst.fct);
     // Operateur
     console.log('_type  '+_type+"   ope  "+_inst.ope)
     if (_type == "ac")
@@ -351,12 +357,27 @@ function add_maj() {
         _inst.elt = _device+'_'+$('#add_idelt_dp').val();
         _inst.pin = $('#add_pin_dp').val();
         _inst.pin_mode = ELT_EXTERNES_TYPES[_device].lmode;
-        elements_defined[_inst.elt] = {};
-        elements_defined[_inst.elt].mode = ELT_EXTERNES_TYPES[$('#add_telt_dp').val()].mode;
-        PIN_AUTHORIZED[_inst.pin].free = false;
+        if (_maj_idins == '' ) {
+            elements_defined[_inst.elt] = {};
+            elements_defined[_inst.elt].mode = ELT_EXTERNES_TYPES[$('#add_telt_dp').val()].mode;
+            PIN_AUTHORIZED[_inst.pin].free = false;
+        } else
+        if (instructions_defined[_maj_section][_maj_idins].elt != _inst.elt ) {
+            console.log('modif dp : '+_inst.elt+'  delete : '+instructions_defined[_maj_section][_maj_idins].elt);
+            delete elements_defined[instructions_defined[_maj_section][_maj_idins].elt];
+            elements_defined[_inst.elt] = {};
+            elements_defined[_inst.elt].mode = ELT_EXTERNES_TYPES[$('#add_telt_dp').val()].mode;
+            PIN_AUTHORIZED[_inst.pin].free = false;
+        } else
+        if (instructions_defined[_maj_section][_maj_idins].pin != _inst.pin ) {
+            console.log('modif dp pin : '+_inst.pin+'  liberer : '+instructions_defined[_maj_section][_maj_idins].pin);
+            PIN_AUTHORIZED[instructions_defined[_maj_section][_maj_idins].pin].free = false;
+            PIN_AUTHORIZED[_inst.pin].free = false;
+        } 
+
     } else {
         _inst.elt = $('#add_elt_'+_type).val();
-        console.log('#sel_elt1'+_type);
+        console.log('#sel_elt1_'+_type);
         _inst.telt1 = $('#sel_elt1_'+_type).val();
         _inst.elt1 = $('#add_elt1_'+_type+'_'+_inst.telt1).val();
         console.log('_inst.telt1  '+_inst.telt1+'   _inst.elt1   '+_inst.elt1);
@@ -365,27 +386,37 @@ function add_maj() {
          _inst.ope = $('#add_ope_'+_type).val();
         _inst.fct  = $('#add_fct_'+_type).val();
         if (_type == 'dv') {
-            elements_defined[_inst.elt] = {};
-            elements_defined[_inst.elt].mode= 'IO';
-        }
+            if (_maj_idins == '' ) {
+                elements_defined[_inst.elt] = {};
+                elements_defined[_inst.elt].mode= 'IO';
+            } else
+            if (instructions_defined[_maj_section][_maj_idins].elt != _inst.elt ) {
+                console.log('modif dv : '+_inst.elt+'  delete : '+instructions_defined[_maj_section][_maj_idins].elt);
+                delete elements_defined[instructions_defined[_maj_section][_maj_idins].elt];
+                elements_defined[_inst.elt] = {};
+                elements_defined[_inst.elt].mode= 'IO';
+            }
+        } else
         if (_type =='fd') {
-            function_defined [_inst.fct] = 1;
+            if (_maj_idins == '' ) {
+                function_defined.push(_inst.fct);
+            } else
+            if (instructions_defined[_maj_section][_maj_idins].fct != _inst.fct ) {
+                console.log('modif fd : '+_inst.fct+'  delete : '+instructions_defined[_maj_section][_maj_idins].fct);
+                remove_fonction(instructions_defined[_maj_section][_maj_idins].fct);
+                function_defined.push(_inst.fct);
+            }
         }
     }
-    // Liberation d'un pin suite a modif
-    if (_maj_idins != '' && instructions_defined[_maj_section][_maj_idins].pin != '' && instructions_defined[_maj_section][_maj_idins].pin != _inst.pin)
-        PIN_AUTHORIZED[instructions_defined[_maj_section][_maj_idins].pin].free = true;
-    
-    // Re creation element externe declare suite a modif
-    if (_maj_idins != '' && instructions_defined[_maj_section][_maj_idins].tins == 'dp' )
-        delete elements_defined[instructions_defined[_maj_section][_maj_idins].elt]
 
     // Impact instruction modif ou creation
     if (_maj_idins == '')
         instructions_defined[_sect].push(_inst);
     else {
+        drop_ktarget = _maj_idins;
         instructions_defined[_sect][_maj_idins] = _inst;
     }
+
     console.log('positionner nouveau : '+drag_korigin+'   '+drop_ktarget);
     if (drag_korigin == -1) {
         drag_korigin = instructions_defined[_sect].length -1; 
@@ -405,9 +436,7 @@ function add_maj() {
         move_elt(drag_sect, drag_korigin, drop_sect, drop_ktarget);
     }
     drag_korigin = -2;
-    redraw_section(_sect);
-    if (drag_sect != drop_sect)
-        redraw_section(drag_sect);
+    redraw();
     $('#addelt').modal('hide');
 }
 
@@ -421,6 +450,7 @@ function add_arg_fd() {
 }
 
 function redraw_section(section) {
+
     var output = [];
 
     $.each(instructions_defined[section], function(key, value) {
@@ -524,21 +554,62 @@ function redraw_section(section) {
         _1c = value.tins.substr(0,1);
        if ( _1c != 'c' && _1c != 'f') {
             if (value.block)
-                output.push(' <span id="acts_'+key+' class="actins"><img src="../img/arrowleft_120102.png" onclick="toggle_block(\''+section+'\', '+key+')"/></span>');
+                output.push(' <img class="block" src="../img/arrowleft.png" onclick="toggle_block(\''+section+'\', '+key+')"/>');
             else if ( key >0 && (instructions_defined[section][key-1].tins.substr(0,1) == 'c' || instructions_defined[section][key-1].block))
-                output.push(' <span id="acts_'+key+' class="actins"><img src="../img/arrowright_120128.png" onclick="toggle_block(\''+section+'\', '+key+')"/></span>');
-            output.push('<style> #divins_'+section+'_'+key+' #acts_'+key+' {opacity:0;} #divins_'+section+'_'+key+' :hover #acts_'+key+'{opacity:1;} </style>');
+                output.push(' <img class="block" src="../img/arrowright.png" onclick="toggle_block(\''+section+'\', '+key+')"/>');
         }
         output.push('</span>');
+        if (value.lerr != '') {
+            output.push(' <span class="error" data-toggle="tooltip" title="'+value.lerr+'"><img class="error" src="../img/error.jpg" /></span>');            
+        }
         output.push('</div>');
     });
     $('#sect_'+section).html(output.join(''));
 }
 
+function redraw(section) {
+
+    verify_instructions();
+    redraw_section('init');
+    redraw_section('loop');
+    redraw_section('fct');
+}
+
+function  verify_instructions() {
+    $.each(instructions_defined, function(_sect, _instructions) {
+        $.each(_instructions, function(_idinst, _inst) {
+            _inst.lerr = '';
+            if (_inst.elt != '' && typeof _inst.elt !== 'undefined' && ! elements_defined.hasOwnProperty(_inst.elt)) {
+                _inst.lerr += _inst.elt + ' : Element non déclaré \n';
+            }
+            if (_inst.elt1 != '' && typeof _inst.elt1 !== 'undefined' && _inst.telt1 == 'elt' && ! elements_defined.hasOwnProperty(_inst.elt1)) {
+                _inst.lerr += _inst.elt1 + ' : Element non déclaré \n';
+            }
+            if (_inst.elt2 != '' && typeof _inst.elt2 !== 'undefined' && _inst.telt2 == 'elt' && ! elements_defined.hasOwnProperty(_inst.elt2)) {
+                _inst.lerr += _inst.elt2 + ' : Element non déclaré \n';
+            }
+            if (_inst.fct != '' && typeof _inst.fct !== 'undefined' && ! function_defined.includes(_inst.fct)) {
+                _inst.lerr += _inst.fct + ' : Fonction non déclarée \n';
+            }
+        });    
+    });
+}
 function toggle_block(section, idelt) {
     instructions_defined[section][idelt].block = ! instructions_defined[section][idelt].block;
-    redraw_section(section);
+    redraw();
 }
+
+function remove_fonction(fct) {
+    _new_array = [];
+    // Supprimer ancien
+    $.each(function_defined, function(key, value) {
+        if (value != fct) {
+            _new_array.push(value);
+        }
+    });
+    function_defined = _new_array;
+}
+
 function move_elt(sect, idelt, sectnew, idnew) {
     console.log('move_elt   '+sect+'   '+idelt+'   '+sectnew+'   '+idnew);
     _elt = instructions_defined[sect][idelt];
@@ -594,7 +665,7 @@ function drop(ev, sect, ktarget) {
         return;
     if (sect == "suppr") {
         move_elt(drag_sect, drag_korigin, sect, -1);
-        redraw_section(drag_sect);
+        redraw();
         return;
     }
     drop_sect = sect;
@@ -611,9 +682,7 @@ function drop(ev, sect, ktarget) {
             drop_ktarget = 0;
         move_elt(drag_sect, drag_korigin, drop_sect, drop_ktarget);
         drag_korigin = -2;
-        redraw_section(drop_sect);
-        if (drag_sect != drop_sect)
-            redraw_section(drag_sect);
+        redraw_section();
     
     } else {
         add(drag_tins, sect, null);
@@ -682,6 +751,10 @@ function save() {
 }
 
 function run_app() {
+    if ($('#sel_device').val() == "" ||$('#sel_firmware').val() == "" ||$('#sel_port').val() == "" ) {
+        erreur("Vous devez renseigner les caractéristiques du microcontroleur pour demander le téléversement");
+        return;
+    }
    send_cmd('run', get_projet());
 }
 
@@ -710,9 +783,7 @@ function send_cmd(cmd, data) {
             }
             if (comobj.cmd == 'read') {
                 set_projet(comobj);
-                redraw_section('init');
-                redraw_section('loop');
-                redraw_section('fct');
+                redraw();
             }
             message(comobj.lret);
         }

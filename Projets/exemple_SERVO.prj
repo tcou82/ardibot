@@ -1,94 +1,98 @@
 {
-    "name": "exemple_LED",
+    "name": "exemple_SERVO",
     "device": "nano",
     "firmware": "atmega328old",
     "port": "COM3",
     "instructions": {
-        "fct": [],
         "init": [
             {
                 "tins": "dp",
-                "word1": "",
-                "word2": "",
-                "word3": "",
-                "elt": "LED_1",
+                "elt": "SERVO_1",
                 "telt1": "",
                 "telt2": "",
-                "telt3": "",
                 "elt1": "",
                 "elt2": "",
-                "elt3": "",
                 "ope": "",
-                "pin": "10",
+                "pin": "8",
                 "pin_mode": "OUTPUT",
                 "fct": "",
                 "nbarg": 0,
-                "block": false
+                "block": false,
+                "lerr": ""
             }
         ],
         "loop": [
             {
                 "tins": "av",
-                "word1": "",
-                "word2": "",
-                "word3": "",
-                "elt": "LED_1",
-                "telt1": "cst",
-                "telt3": "",
-                "elt1": "LOW",
-                "elt3": "",
+                "elt": "SERVO_1",
+                "telt1": "val",
+                "elt1": "0",
                 "pin": "",
                 "pin_mode": "",
                 "nbarg": 0,
-                "block": false
+                "block": false,
+                "lerr": ""
             },
             {
                 "tins": "at",
-                "word1": "",
-                "word2": "",
-                "word3": "",
+                "elt": "",
                 "telt1": "val",
-                "telt3": "",
-                "elt1": "0.5",
-                "elt3": "",
+                "elt1": "2",
                 "pin": "",
                 "pin_mode": "",
                 "nbarg": 0,
-                "block": false
+                "block": false,
+                "lerr": ""
             },
             {
                 "tins": "av",
-                "word1": "",
-                "word2": "",
-                "word3": "",
-                "elt": "LED_1",
-                "telt1": "cst",
-                "telt3": "",
-                "elt1": "HIGH",
-                "elt3": "",
+                "elt": "SERVO_1",
+                "telt1": "val",
+                "elt1": "90",
                 "pin": "",
                 "pin_mode": "",
                 "nbarg": 0,
-                "block": false
+                "block": false,
+                "lerr": ""
             },
             {
                 "tins": "at",
-                "word1": "",
-                "word2": "",
-                "word3": "",
+                "elt": "",
                 "telt1": "val",
-                "telt3": "",
-                "elt1": "0.5",
-                "elt3": "",
+                "elt1": "2",
                 "pin": "",
                 "pin_mode": "",
                 "nbarg": 0,
-                "block": false
+                "block": false,
+                "lerr": ""
+            },
+            {
+                "tins": "av",
+                "elt": "SERVO_1",
+                "telt1": "val",
+                "elt1": "180",
+                "pin": "",
+                "pin_mode": "",
+                "nbarg": 0,
+                "block": false,
+                "lerr": ""
+            },
+            {
+                "tins": "at",
+                "elt": "",
+                "telt1": "val",
+                "elt1": "2",
+                "pin": "",
+                "pin_mode": "",
+                "nbarg": 0,
+                "block": false,
+                "lerr": ""
             }
-        ]
+        ],
+        "fct": []
     },
     "elements_defined": {
-        "LED_1": {
+        "SERVO_1": {
             "mode": "O"
         }
     },
@@ -113,13 +117,13 @@
             "free": true
         },
         "8": {
-            "free": true
+            "free": false
         },
         "9": {
             "free": true
         },
         "10": {
-            "free": false
+            "free": true
         },
         "11": {
             "free": true

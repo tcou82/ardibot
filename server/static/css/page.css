@@ -9,6 +9,8 @@ input {border: solid 1px SteelBlue; border-radius: 3px; }
 select {padding: 0px; margin-left: 3; border: solid 1px SteelBlue; border-radius: 3px; }
 a {margin: 0px; text-align: left;}
 img {width: 28px; height: 28px;}
+img.error {width: 12px; height: 12px;}
+img.block {width: 12px; height: 12px;}
 img.maxi {margin-left:12px; padding: 4px; width: 42px; height: 42px;}
 img.bandeau {margin-left:5px; padding: 2px; width: 42px; height: 42px;background-color: lightsteelblue; border-radius: 10px;}
 h2.bandeau  {padding: 5px; width: 85%; font-size: 200%}
@@ -16,42 +18,52 @@ select.bandeau {margin-left:5px; padding: 2px; font-size: 120%; margin-top:8px; 
 input.bandeau {margin-left:5px; padding: 2px; font-size: 120%; margin-top:8px; background-color: lightsteelblue; border-radius: 10px;}
 label.bandeau {margin-left:15px; padding: 2px; font-size: 120%; margin-top:8px;}
 
-
+.error {margin: 0px; padding: 0px; }
 .d-sm-flex {color:white; background-color: SteelBlue;  text-align: left; border: solid 3px SteelBlue;  border-radius: 10px;}
 .log {margin:5px; padding: 5px; color:darkblue; background-color: rgb(214, 228, 236);  font-weight: normal; text-align: left; border: solid 3px SteelBlue;  border-radius: 30px;}
 .dropdown-menu {color: SteelBlue;  text-align: left; border: solid 3px SteelBlue;  border-radius: 10px;}
 .btn, .btn-group {color:white; background-color: SteelBlue;  text-align: left; border: solid 3px SteelBlue;  border-radius: 10px;}
+
 .msgbutton {padding:8px; margin:1px; color:white; background-color: SteelBlue; border-radius: 10px; }
 .msgtext {padding:7px; color: SteelBlue; }
 .msgtit {padding: 5px; font-size: 120%; color: SteelBlue; border-bottom: solid 3px SteelBlue; border-radius: 10px;}
 .msgtit1 {padding: 5px; font-size: 120%; color: SteelBlue; text-align: center; border: solid 3px SteelBlue;  border-radius: 10px;}
 .cadre {margin: 3px; border: solid 1px #4682b4;border-radius: 10px;}
+
 .divins {padding:5px; margin:1px;}
 .divins2 {padding:5px; margin:1px; margin-left: 4;}
+
 .declare {padding:5px; margin:3px; font-weight: bold; color:white; background-color: orange; border-radius: 10px; }
+
 .cond {padding:5px; margin:1px; font-weight: bold; color:white; background-color: darkblue; border-radius: 10px; }
 select.cond {padding:0px; margin:0px; font-weight: bold; color:white; background-color: darkblue; border-radius: 10px; }
+
 .action {padding:5px; margin:1px; width: auto; font-weight: bold; color:white; background-color: peru; border-radius: 10px; }
 select.action {padding:0px; margin:0px; font-weight: bold; color:white; background-color: peru; border-radius: 10px; }
 .actins {padding:5px; margin:1px; width: auto; background-color: powderblue; border-radius: 10px;}
+
 .pin {padding:5px; margin:1px; font-weight: bold; color:white; background-color: purple; border-radius: 10px; }
 select.pin {padding:0px; margin:0px; font-weight: bold; color:white; background-color: purple; border-radius: 10px; }
 select.pin {padding:0px; margin:0px; font-weight: bold; color:white; background-color: purple; border-radius: 5px; }
+
 .elemt {padding:5px; margin:1px; font-weight: bold; color:white; background-color: green; border-radius: 10px; }
 select.elemt {padding:0px; margin:0px; font-weight: bold; color:white; background-color: green; border-radius: 5px; }
 input.elemt {padding:0px; margin:0px; font-weight: bold; color:black; background-color: lightgreen; border-radius: 5px; }
 input.elemt :hover {cursor: initial; }
+
 .value {padding:5px; margin:1px; font-weight: bold; color:white; background-color: grey; border-radius: 10px; }
 select.value {padding:0px; margin:1px; font-weight: bold; color:black; background-color: lightgrey; border-radius: 5px; }
 input.value {padding:0px; margin:1px; font-weight: bold; color:black; background-color: lightgrey; border-radius: 5px; }
 input.value :hover {cursor: initial; }
+
 .fct {padding:5px; margin:1px; font-weight: bold; color:white; background-color: darkred; border-radius: 10px; }
 select.fct {padding:0px; margin:0px; font-weight: bold; color:white; background-color: darkred; border-radius: 5px; }
 input.fct {padding:0px; margin:0px; font-weight: bold; color:white; background-color: darkred; border-radius: 5px; }
 input.fct :hover {cursor: initial; }
-.tab1 {margin-left: 30px;}
-.tab2 {margin-left: 60px;}
-.tab3 {margin-left: 90px;}
+
+.tab1 {padding:5px; margin:0px; margin-left: 30px;}
+.tab2 {padding:5px; margin:0px; margin-left: 60px;}
+.tab3 {padding:5px; margin:0px; margin-left: 90px;}
 .zbtn { text-align: center; font-size: 120%;}
 .div_actions {padding: 10px;}
 .div_setup {padding: 5px;}

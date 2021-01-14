@@ -9,18 +9,11 @@
     <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
     <meta name="mobile-web-app-capable" content="yes">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
-        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-        crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../css/page.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+      <link rel="stylesheet" href="../css/page.css">
 
     <script src="../js/page.js" async></script>
 
@@ -33,14 +26,14 @@
 
 <body allign='center' onload="initpage()">
     <div class="d-sm-flex d-lg-flex-inline ">
-        <div onclick="document.location.reload();"> <a >
+        <div onclick="document.location.reload();" data-toggle="tooltip" title="Nouveau projet"> <a >
             <img class="bandeau" src="../img/fileempty_120151.png" />
             </a>
         </div>
-        <div class="link" onclick="list()"><a>
+        <div class="link" onclick="list()" data-toggle="tooltip" title="Importer projet"><a>
             <img class="bandeau" src="../img/fileimport_120157.png" /></a>
         </div>
-        <div onclick="save()"><a>
+        <div onclick="save()" data-toggle="tooltip" title="Enregistrer projet"><a>
             <img class="bandeau" src="../img/floppy_119973.png" /></a>
         </div>
         <div>
@@ -66,10 +59,10 @@
                 <option value="COM3">COM3</option>
             </select>
         </div>
-        <div>
+        <div data-toggle="tooltip" title="Demander le téléversement">
             <a><span onclick="run_app();"><img class="maxi" src="../img/Start-icon.png" /></span></a>
         </div>
-        <div>
+        <div data-toggle="tooltip" title="Demander l'arrêt de l'exécution">
             <a><span onclick="stop_app();"><img class="maxi" src="../img/Stop-red-icon.png" /></span></a>
         </div>
     </div>
@@ -558,7 +551,7 @@
     <div class="modal fade" id="zliste_projets" tabindex="-1" role="document" aria-hidden="false">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <div class="msgtit" id="add_title">Sélectionner le projet à ouvrir</div>
+                <div class="msgtit" id="add_title">Sélectionner le projet à importer</div>
                 <div class="modal-body">
                     <select id="liste_projets" size="8"></select>
                 </div>

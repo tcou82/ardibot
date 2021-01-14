@@ -168,7 +168,7 @@
             "mode": "IO"
         }
     },
-    "function_defined": {},
+    "function_defined": [],
     "PIN_AUTHORIZED": {
         "2": {
             "free": true
