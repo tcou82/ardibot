@@ -1,9 +1,15 @@
-D:\developpements\ardibot\Arduino\tmp\app.ino: In function 'void loop()':
-D:\developpements\ardibot\Arduino\tmp\app.ino:15:5: error: 'tempo' was not declared in this scope
-     tempo = get_SONAR(SONAR_1_PIN) / 50;
-     ^~~~~
-D:\developpements\ardibot\Arduino\tmp\app.ino:15:5: note: suggested alternative: 'tempos'
-     tempo = get_SONAR(SONAR_1_PIN) / 50;
-     ^~~~~
-     tempos
-exit status 1
+
+avrdude: Version 6.3-20190619
+         Copyright (c) 2000-2005 Brian Dean, http://www.bdmicro.com/
+         Copyright (c) 2007-2014 Joerg Wunsch
+
+         System wide configuration file is "D:\developpements\ardibot\Arduino\hardware\tools\avr/etc/avrdude.conf"
+
+         Using Port                    : COM3
+         Using Programmer              : arduino
+         Overriding Baud Rate          : 57600
+avrdude: ser_open(): can't open device "\\.\COM3": Le fichier spécifié est introuvable.
+
+
+avrdude done.  Thank you.
+

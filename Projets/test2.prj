@@ -1,5 +1,5 @@
 {
-    "name": "test",
+    "name": "test2",
     "device": "nano",
     "firmware": "atmega328old",
     "port": "COM3",
@@ -8,28 +8,19 @@
         "init": [
             {
                 "tins": "dp",
+                "word1": "",
+                "word2": "",
+                "word3": "",
                 "elt": "SONAR_1",
                 "telt1": "",
                 "telt2": "",
+                "telt3": "",
                 "elt1": "",
                 "elt2": "",
+                "elt3": "",
                 "ope": "",
                 "pin": "6",
                 "pin_mode": "INPUT",
-                "fct": "",
-                "block": false,
-                "lerr": ""
-            },
-            {
-                "tins": "dp",
-                "elt": "LED_1",
-                "telt1": "",
-                "telt2": "",
-                "elt1": "",
-                "elt2": "",
-                "ope": "",
-                "pin": "10",
-                "pin_mode": "OUTPUT",
                 "fct": "",
                 "nbarg": 0,
                 "block": false,
@@ -37,7 +28,7 @@
             },
             {
                 "tins": "dv",
-                "elt": "tempo",
+                "elt": "tempos",
                 "telt1": "val",
                 "elt1": "9",
                 "pin": "",
@@ -65,7 +56,7 @@
                 "pin_mode": "",
                 "nbarg": 0,
                 "block": false,
-                "lerr": ""
+                "lerr": "tempo : Element non d\u00e9clar\u00e9 \n"
             },
             {
                 "tins": "ci",
@@ -82,7 +73,7 @@
                 "pin_mode": "",
                 "nbarg": 0,
                 "block": false,
-                "lerr": ""
+                "lerr": "tempo : Element non d\u00e9clar\u00e9 \n"
             },
             {
                 "tins": "av",
@@ -114,18 +105,7 @@
                 "pin_mode": "",
                 "nbarg": 0,
                 "block": true,
-                "lerr": ""
-            },
-            {
-                "tins": "av",
-                "elt": "tempo",
-                "telt1": "cst",
-                "elt1": "LOW",
-                "pin": "",
-                "pin_mode": "",
-                "nbarg": 0,
-                "block": true,
-                "lerr": ""
+                "lerr": "tempo : Element non d\u00e9clar\u00e9 \n"
             },
             {
                 "tins": "av",
@@ -157,6 +137,35 @@
                 "pin_mode": "",
                 "nbarg": 0,
                 "block": false,
+                "lerr": "tempo : Element non d\u00e9clar\u00e9 \n"
+            },
+            {
+                "tins": "dp",
+                "word1": "",
+                "word2": "",
+                "word3": "",
+                "elt": "LED_1",
+                "telt1": "",
+                "telt2": "",
+                "telt3": "",
+                "elt1": "",
+                "elt2": "",
+                "elt3": "",
+                "ope": "",
+                "pin": "10",
+                "pin_mode": "OUTPUT",
+                "fct": "",
+                "nbarg": 0,
+                "block": false,
+                "lerr": ""
+            },
+            {
+                "tins": "ae",
+                "pin": "",
+                "pin_mode": "",
+                "fct": "test",
+                "nbarg": 0,
+                "block": false,
                 "lerr": ""
             }
         ]
@@ -168,11 +177,13 @@
         "LED_1": {
             "mode": "O"
         },
-        "tempo": {
+        "tempos": {
             "mode": "IO"
         }
     },
-    "function_defined": [],
+    "function_defined": [
+        "test"
+    ],
     "PIN_AUTHORIZED": {
         "2": {
             "free": true

@@ -610,20 +610,7 @@ function remove_fonction(fct) {
     function_defined = _new_array;
 }
 
-function move_elt(sect, idelt, sectnew, idnew) {
-    console.log('move_elt   '+sect+'   '+idelt+'   '+sectnew+'   '+idnew);
-    _elt = instructions_defined[sect][idelt];
-    if (sectnew == "suppr") {
-        if (_elt.tins == 'dp' && _elt.pin != '') PIN_AUTHORIZED[_elt.pin].free = true;
-        if (_elt.tins == 'dp' || _elt.tins == 'dv') {
-            console.log('delete elements_defined   '+sect+'   '+idelt+'   '+sectnew+'   '+idnew);
-            delete elements_defined[_elt.elt];
-        }
-        if (_elt.tins == 'fd') {
-            console.log('delete function_defined   '+sect+'   '+idelt);
-            delete function_defined[_elt.fct];
-        }
-    }
+function remove_instruction(section, idins) {
     _new_array = [];
     // Supprimer ancien
     $.each(instructions_defined[sect], function(key, value) {
@@ -632,13 +619,32 @@ function move_elt(sect, idelt, sectnew, idnew) {
         }
     });
     instructions_defined[sect] = _new_array;
+}
+
+function move_elt(sect, idelt, sectnew, idnew) {
+    console.log('move_elt   '+sect+'   '+idelt+'   '+sectnew+'   '+idnew);
+    // memo elt a deplacer
+    _elt = instructions_defined[sect][idelt];
+    // Supprimer ancien
+    _new_array = [];
+    $.each(instructions_defined[sect], function(key, value) {
+        if (key != idelt) {
+            console.log('garde   '+key);
+            _new_array.push(value);
+        } else {
+            console.log('suppr   '+key);
+        }
+    });
+    instructions_defined[sect] = _new_array;
     // Ajouter nouveau si pas poubelle
     if (sectnew != 'suppr') {
         _new_array = [];
         $.each(instructions_defined[sectnew], function(key, value) {
             if (key == idnew) {
+                console.log('ajoute new sur  '+key);
                 _new_array.push(_elt);
             }
+            console.log('garde   '+key);
             _new_array.push(value);
         });
         if (idnew > instructions_defined[sectnew].length -1)
@@ -664,6 +670,16 @@ function drop(ev, sect, ktarget) {
     if (drag_korigin == -2)
         return;
     if (sect == "suppr") {
+        _elt = instructions_defined[drag_sect][drag_korigin];
+        if (_elt.tins == 'dp' && _elt.pin != '') PIN_AUTHORIZED[_elt.pin].free = true;
+        if (_elt.tins == 'dp' || _elt.tins == 'dv') {
+            console.log('delete elements_defined   '+sect+'   '+idelt+'   '+sectnew+'   '+idnew);
+            delete elements_defined[_elt.elt];
+        }
+        if (_elt.tins == 'fd') {
+            console.log('delete function_defined   '+_elt.fct);
+            remove_fonction(_elt.fct);
+        }
         move_elt(drag_sect, drag_korigin, sect, -1);
         redraw();
         return;
@@ -680,16 +696,17 @@ function drop(ev, sect, ktarget) {
         }
         if (drop_ktarget == -1)
             drop_ktarget = 0;
+        if (drag_sect != drop_sect)
+            drop_ktarget += 1;
         move_elt(drag_sect, drag_korigin, drop_sect, drop_ktarget);
         drag_korigin = -2;
-        redraw_section();
+        redraw();
     
     } else {
         add(drag_tins, sect, null);
     }
-    //var data = ev.dataTransfer.getData("text");
-    //ev.target.appendChild(document.getElementById(data));
 }
+
 function allowDrop(ev, sect) {
     if (drag_tins == "dp" && sect != "init"  && sect != "trash") return false;
     if ((drag_tins == "fd"  || drag_tins == "fd") && sect != "fct"  && sect != "trash") return false;
