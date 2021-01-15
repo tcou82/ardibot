@@ -4,35 +4,29 @@
 
 int REVERSE = -1;
 int inters [20] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-const int SONAR_1_PIN = 6; 
 const int LED_1_PIN = 10; 
-    float tempo = 9;
 
-#line 9 "D:\\developpements\\ardibot\\Arduino\\tmp\\app.ino"
+#line 7 "D:\\developpements\\ardibot\\Arduino\\tmp\\app.ino"
 void setup();
-#line 14 "D:\\developpements\\ardibot\\Arduino\\tmp\\app.ino"
+#line 12 "D:\\developpements\\ardibot\\Arduino\\tmp\\app.ino"
 void loop();
-#line 25 "D:\\developpements\\ardibot\\Arduino\\tmp\\app.ino"
+#line 19 "D:\\developpements\\ardibot\\Arduino\\tmp\\app.ino"
 float get_SONAR(int npin);
-#line 38 "D:\\developpements\\ardibot\\Arduino\\tmp\\app.ino"
+#line 32 "D:\\developpements\\ardibot\\Arduino\\tmp\\app.ino"
 int get_INTER(int npin);
-#line 53 "D:\\developpements\\ardibot\\Arduino\\tmp\\app.ino"
+#line 47 "D:\\developpements\\ardibot\\Arduino\\tmp\\app.ino"
 void set_MOTEUR(int npinA, int npinB, int val);
-#line 9 "D:\\developpements\\ardibot\\Arduino\\tmp\\app.ino"
+#line 7 "D:\\developpements\\ardibot\\Arduino\\tmp\\app.ino"
 void setup() { 
     Serial.begin(9600); // Default communication rate of the Bluetooth module
     Serial.println("Initialisation connexion:");
     pinMode(LED_1_PIN, OUTPUT); 
 }
 void loop() {
-    tempo = get_SONAR(SONAR_1_PIN) / 50;
-    if (tempo < 2) {
     digitalWrite(LED_1_PIN, LOW);
-    delay(tempo*1000);
+    delay(0.5*1000);
     digitalWrite(LED_1_PIN, HIGH);
-
-}
-    delay(tempo*1000);
+    delay(0.5*1000);
 }
 
 float get_SONAR(int npin) {

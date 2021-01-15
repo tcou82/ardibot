@@ -10,7 +10,7 @@ import urllib.parse
 from mimetypes import MimeTypes
 
 SERVER_PORT = 8000
-REP_INSTALL = 'D:\\developpements\\ardibot'
+REP_INSTALL = os.getenv('ardibot_path')
 FIRMWARE = {'atmega328p': 'atmega328p',
             'atmega328old': 'atmega328p'}
 
