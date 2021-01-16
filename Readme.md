@@ -14,7 +14,15 @@ La programmation des périphériques a été simplifiée au maximum pour garder 
 
 ## Installation plateforme
 
-Télécharger le zip de la plateforme depuis github et le dezipper sur votre disque. 
+Télécharger le zip de la plateforme depuis github et le dezipper sur votre disque.
+
+* Url : https://github.com/tcou82/ardibot
+* Déplier le bouton code
+* Cliquer download zip et choisir enregistrer le fichier
+* Une fois le téléchargement terminé ouvrir le dossier de téléchargement
+* Faire click droit sur le fichier zip et choisir Extraire tout
+* Choisir un emplacement sur le disque et cliquer sur extraire.
+
 
 ------------------
 
