@@ -36,7 +36,7 @@ Pour faciliter le lancement vous pouvez ajouter un raccourci en faisant :
 
 ------------------
 
-## Les tutos montages
+## Les tutos des montages periphériques
 
 Avant de se lancer dans le montage et la programmation d'un robot il est conseillé de maîtriser les différents périphériques. Pour cela des ateliers tutos sont proposés où les montages et la programmation sont expliqués en détails :
 
@@ -44,21 +44,45 @@ Avant de se lancer dans le montage et la programmation d'un robot il est conseil
 
 * Matériel de base nécessaires pour les montages réalisés dans les tutos
 * Connection et vérification du microcontroleur Arduino Nano.
+* Structure de programme pour un Arduino
 
-### Les périphériques pour agire
+La découverte de plateforme et de la programmation va se faire par la pratique dans les différents tutos.
 
-* LED - Faire clignoter une LED
-* BUZZER - Faire des bips
-* RELAIS - Activer un circuit de puissance
-* SERVO - Manoeuvrer un servo dans différentes positions
-* MOTEUR - Activer un moteur en marche avant et en marche arriere.
+### Les périphériques pour agir avec le monde réel
 
-### Les capteurs
+* LED - Faire clignoter une LED - Assigner un périphérique
+* BUZZER - Faire des bips - Les variables
+* RELAIS - Commuter un circuit de puissance - Les conditions
+* SERVO -  Manoeuvrer un servo - Les boucles
+* MOTEUR - Activer un moteur - Les fonctions
 
-* INTERRUPTEUR : Commander une LED avec un bouton poussoir
+### Les capteurs pour réagir avec le monde réel
+
 * SONAR : Mesurer la distance avec un obstacle
+* INTERRUPTEUR : Détecter l'état d'un bouton poussoir
+
+### Les communications pour piloter le robot
+
+* Bluetooth
+* 
 
       @TODO 1 page par tuto
+
+------------
+
+## Les robots autonomes
+
+### Handy - Le bras robotisé
+
+#### Présentation
+
+#### Montage
+
+#### Activer les servos
+
+### Walker - Robot marcheur
+
+### Scoot - Robot motorisé  
 
 
 
