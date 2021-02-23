@@ -3,7 +3,7 @@
 
 int REVERSE = -1;
 int inters [20] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-const int LED_1_PIN = 10;
+const int LED_1_PIN = 7;
 
 void setup() {
     Serial.begin(9600); // Default communication rate of the Bluetooth module
@@ -11,10 +11,10 @@ void setup() {
     pinMode(LED_1_PIN, 0x1);
 }
 void loop() {
-    digitalWrite(LED_1_PIN, 0x0);
-    delay(0.5*1000);
     digitalWrite(LED_1_PIN, 0x1);
-    delay(0.5*1000);
+    delay(1*1000);
+    digitalWrite(LED_1_PIN, 0x0);
+    delay(1*1000);
 }
 
 float get_SONAR(int npin) {
