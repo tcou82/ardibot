@@ -1,5 +1,7 @@
 # Ardibot 
 
+:toc:
+
 Plateforme de découverte robotique pour les enfants de 7 à 77 ans
 
 Quel merveilleux monde que celui de la robotique où la magie de l'informatique devient réelle à l'aide de moteurs, servos et autres capteurs.
@@ -36,7 +38,7 @@ Pour faciliter le lancement vous pouvez ajouter un raccourci en faisant :
 
 ------------------
 
-## Les tutos des montages periphériques
+## Les tutos des montages des periphériques
 
 Avant de se lancer dans le montage et la programmation d'un robot il est conseillé de maîtriser les différents périphériques. Pour cela des ateliers tutos sont proposés où les montages et la programmation sont expliqués en détails :
 
@@ -51,6 +53,8 @@ La découverte de plateforme et de la programmation va se faire par la pratique 
 ### Les périphériques pour agir avec le monde réel
 
 * LED - Faire clignoter une LED - Assigner un périphérique
+https://discuss.asciidoctor.org[Discuss Asciidoctork]
+
 * BUZZER - Faire des bips - Les variables
 * RELAIS - Commuter un circuit de puissance - Les conditions
 * SERVO -  Manoeuvrer un servo - Les boucles
@@ -64,7 +68,7 @@ La découverte de plateforme et de la programmation va se faire par la pratique 
 ### Les communications pour piloter le robot
 
 * Bluetooth
-* 
+* Com série
 
       @TODO 1 page par tuto
 
