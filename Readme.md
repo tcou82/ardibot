@@ -40,30 +40,28 @@ Pour faciliter le lancement vous pouvez ajouter un raccourci en faisant :
 
 ## Les tutos des montages des periphériques
 
-Avant de se lancer dans le montage et la programmation d'un robot il est conseillé de maîtriser les différents périphériques. Pour cela des ateliers tutos sont proposés où les montages et la programmation sont expliqués en détails :
+Avant de se lancer dans le montage et la programmation d'un robot il est conseillé de maîtriser les différents périphériques. Pour cela des ateliers tutos sont proposés où les montages sont expliqués en détails avec des schémas et les éléments de programmation sont abordés de façon progressive :
 
-### Débuter
+* tuto 1 : Débuter - Matériel de base et structure de programme pour un Arduino.  ![Tuto1](./Schemas/tuto_Led.jpg)
 
-* Matériel de base nécessaires pour les montages réalisés dans les tutos
-* Connection et vérification du microcontroleur Arduino Nano.
-* Structure de programme pour un Arduino
+* tuto 2 : LED - Faire clignoter une LED - Déclarer un périphérique.  
+![Tuto1](./Schemas/tuto_Led.jpg) 
 
-La découverte de plateforme et de la programmation va se faire par la pratique dans les différents tutos.
-
-### Les périphériques pour agir avec le monde réel
-
-* LED - Faire clignoter une LED - Assigner un périphérique
-https://discuss.asciidoctor.org[Discuss Asciidoctork]
-
-* BUZZER - Faire des bips - Les variables
-* RELAIS - Commuter un circuit de puissance - Les conditions
-* SERVO -  Manoeuvrer un servo - Les boucles
-* MOTEUR - Activer un moteur - Les fonctions
+* tuto 3 : BUZZER - Faire des bips - Les variables.  
+![Tuto1](./Schemas/tuto_Led.jpg)
+* tuto 4 : RELAIS - Commuter un circuit de puissance - Les conditions.  
+![Tuto1](./Schemas/tuto_Led.jpg)
+* SERVO -  Manoeuvrer un servo - Les boucles.  
+![Tuto1](./Schemas/tuto_Servo.jpg)
+* MOTEUR - Activer un moteur - Les fonctions.  
+![Tuto1](./Schemas/tuto_Led.jpg)
 
 ### Les capteurs pour réagir avec le monde réel
 
-* SONAR : Mesurer la distance avec un obstacle
-* INTERRUPTEUR : Détecter l'état d'un bouton poussoir
+* SONAR : Mesurer la distance avec un obstacle.  
+![Tuto1](./Schemas/tuto_Led.jpg)
+* INTERRUPTEUR : Détecter l'état d'un bouton poussoir.  
+![Tuto1](./Schemas/tuto_Led.jpg)
 
 ### Les communications pour piloter le robot
 
